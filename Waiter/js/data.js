@@ -73,9 +73,9 @@ const tables = [
 const dishes = [
     { id: 101, name: "Phở bò đặc biệt", category: "main", price: 90000, img: "https://lh3.googleusercontent.com/aida-public/AB6AXuC00y7xYY_2n5cISAQmAiR-mxtLj3XyzLqUnq_zXbN40yR8ygFLtsCckvhA3sTcV_FACaiVo0_0RvdBrEb7pK5AGQaQ6f2Ainh0TmxgdEBJAzfO-66b0PL3I0cNMjZrKYr7Wn6GNkYo5RajllXEqsIOlBzHAUr1qaPlcR7u2XTWOXcCpcvlzZcx_XlfMRYH6KryoZy7J4IAL4f5a5g9eG-YqQ5lWcDaVs415l_z_965IkHsttQNFJr7ax37iFyQC77Qh0ZX8Gzi6EqW", available: true },
     { id: 102, name: "Gỏi cuốn tôm thịt", category: "starter", price: 45000, img: "https://lh3.googleusercontent.com/aida-public/AB6AXuC5_DOzJsl9i4C4vGSRjRnDNS9zwx66tkD9yRule5ugq_dQh7y7K_kVdoaHtRsK0iuYT4pEJS7HxB6KPYW8OexuYULCKNpuj0_gkPWnH96ZWcaCFlUOLyriKvPAoZIaA6UZ_y04jmNVBfAvJA-E9b-qX3feu4-aLrp7OqwpJ4fZIFqB8NlocxxFn2pc4FEwrqrG7-Cu9OCyrYZSQSzssgIFDq1jtX-5wXunvmes05e_Vrap8L2eD7ztCXLauwTb2KA2xgkhTUVgZ5e0", available: true },
-    { id: 103, name: "Cơm tấm sườn bì", category: "main", price: 75000, img: "https://lh3.googleusercontent.com/aida-public/AB6AXuCHLPqkjcTZt8E0qk78qq-GzcvU3-dJ4nmbTuWDjpgW_EVjaTDYaJdJ9LiYtU7zaav7Pwm0IGylzpYeKw9y038jW5rNbpcAdlJOMMVrE3o-5A62x7jsY8-XB7vFY0oT6iOyZ6bzX8zTQCYqr8LtGJgamY12i1pBzarSGiDyQuitP9zzH2wa3a6_AYjhtHtDuZS6Vr5wmjTuMv7C7jRowiuSKgqXanOVTO2wfb3lHA9gdyW-8H_KlW2Vt31NiBjZMJxYcGeNSmd9MGWF", available: true },
+    { id: 103, name: "Cơm tấm sườn bì", category: "main", price: 75000, img: "https://emdoi.vn/wp-content/uploads/2025/04/com-tam-ngon-quan-1-0.webp", available: true },
     { id: 104, name: "Cà phê sữa đá", category: "drink", price: 35000, img: "https://lh3.googleusercontent.com/aida-public/AB6AXuAGD8ek_tZyJFU5QwMiE_B_jsqHKARqJQslMF1mfWqoYQpY1TJoPldGbtr5UR6n2K2Y1FD8eMX9-pTHrfp4DzGXoZKpuaLt5r3Tl0tmJdFZtN4sCw_9xivFjoxoNWgS_mA8srPG2YQRNgSFbUoBFxlgANL1v1Sbiqc1zxhNOMY1L2wQQmiUTQlU35A55xlVgNC5kk4-IGMkBPb7oVmOnEv6aJ37xOU_d9OWV2qXIiRt57ZcSYpEw7_6SrjgNQKIsE7YrCy7eVR1m5uL", available: true },
-    { id: 105, name: "Chè khúc bạch", category: "dessert", price: 40000, img: "https://lh3.googleusercontent.com/aida-public/AB6AXuDSP3-zFhD_aLCGc0cnnyG4uRZW8hJbPYQ4ESu-EELwp3omTnp-sWBBJ6FmhKkHcou98KAT5GPwgJJDyijiLZVUjX2LebZXlEUAEVL0MOyIibj2hVwSGIIOi9oAh6xaL-7DPioiqJP3rMOZmXiUvqK4fSnMc2nLqUDUqz_rBJ2pH_GlV7CkvocDPJgbJLYrTKZjTE6BWq2VyCM5c9Kb1Reo6TGSKm9XizpGd1DIntjiUhw1WNXsoZ0QvkXy4yaTr5XAi7JaUj9UZ75q", available: true },
+    { id: 105, name: "Chè khúc bạch", category: "dessert", price: 40000, img: "https://cdn.mediamart.vn/images/news/huong-dan-cach-lam-che-khuc-bach-thanh-mat-thom-ngon-hap-dan_ada6ac3c.png", available: true },
     { id: 106, name: "Hủ tiếu Nam Vang", category: "main", price: 65000, img: "", available: false },
 ];
 
@@ -95,17 +95,48 @@ function formatCurrency(num) {
 function getStatusBadge(status) {
     switch (status) {
         case 'pending': return `<span class="px-2 py-0.5 bg-status-pending/[0.12] text-status-pending text-[10px] font-bold uppercase rounded tracking-wider">Chờ XN</span>`;
+        case 'confirmed': return `<span class="px-2 py-0.5 bg-blue-500/[0.12] text-blue-500 text-[10px] font-bold uppercase rounded tracking-wider">Xác nhận</span>`;
         case 'preparing': return `<span class="px-2 py-0.5 bg-primary-orange/[0.12] text-primary-orange text-[10px] font-bold uppercase rounded tracking-wider">Đang làm</span>`;
         case 'ready': return `<span class="px-2 py-0.5 bg-status-ready/[0.12] text-status-ready text-[10px] font-bold uppercase rounded tracking-wider">Sẵn sàng</span>`;
-        case 'completed': return `<span class="px-2 py-0.5 bg-text-sub/[0.12] text-text-sub text-[10px] font-bold uppercase rounded tracking-wider">Đã xong</span>`;
+        case 'completed': return `<span class="px-2 py-0.5 bg-green-500/[0.12] text-green-500 text-[10px] font-bold uppercase rounded tracking-wider">Hoàn thành</span>`;
+        case 'paying': return `<span class="px-2 py-0.5 bg-purple-500/[0.12] text-purple-500 text-[10px] font-bold uppercase rounded tracking-wider">Thanh toán</span>`;
+        case 'cancelled': return `<span class="px-2 py-0.5 bg-red-500/[0.12] text-red-500 text-[10px] font-bold uppercase rounded tracking-wider">Đã hủy</span>`;
         default: return '';
     }
+}
+
+function showToast(message, type = 'success') {
+    const container = document.getElementById('toast-container');
+    if (!container) return;
+
+    const toast = document.createElement('div');
+    const bgColor = type === 'success' ? 'bg-status-ready' : 'bg-red-500';
+    const icon = type === 'success' ? 'check_circle' : 'error';
+
+    toast.className = `${bgColor} text-white rounded-xl p-4 shadow-float flex items-center gap-3 pointer-events-auto transform transition-all duration-300 translate-y-[-20px] opacity-0`;
+    toast.innerHTML = `
+        <span class="material-symbols-outlined text-[20px]">${icon}</span>
+        <span class="font-display font-bold text-[14px] flex-1">${message}</span>
+    `;
+
+    container.appendChild(toast);
+
+    // Fade in
+    requestAnimationFrame(() => {
+        toast.classList.remove('translate-y-[-20px]', 'opacity-0');
+    });
+
+    // Auto-remove
+    setTimeout(() => {
+        toast.classList.add('opacity-0', 'translate-x-full');
+        setTimeout(() => toast.remove(), 300);
+    }, 3000);
 }
 
 function showNewOrderToast(table, itemsCount) {
     const container = document.getElementById('toast-container');
     if (!container) return;
-    
+
     const toast = document.createElement('div');
     toast.className = "bg-primary text-white rounded-[12px] p-[12px] shadow-float flex flex-col pointer-events-auto transform transition-all duration-500 -translate-y-full opacity-0";
     toast.innerHTML = `

@@ -4,23 +4,25 @@ const MenuComponent = {
 
     render: function (container, params) {
         container.innerHTML = `
-            <div class="px-4 mt-3 shrink-0">
-                <div class="relative group">
-                    <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-text-muted text-[20px]">search</span>
-                    <input class="w-full h-[40px] pl-10 pr-4 bg-[#F8F7F4] border-1.5 border-border-main rounded-[10px] outline-none placeholder:text-text-muted text-[14px] font-body" placeholder="Tìm món ăn, đồ uống..." type="text" id="menu-search" value="${this.searchQuery}" />
+            <div class="flex flex-col h-full">
+                <div class="px-4 mt-3 shrink-0">
+                    <div class="relative group">
+                        <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-text-muted text-[20px]">search</span>
+                        <input class="w-full h-[40px] pl-10 pr-4 bg-[#F8F7F4] border-1.5 border-border-main rounded-[10px] outline-none placeholder:text-text-muted text-[14px] font-body" placeholder="Tìm món ăn, đồ uống..." type="text" id="menu-search" value="${this.searchQuery}" />
+                    </div>
                 </div>
-            </div>
 
-            <div class="flex overflow-x-auto no-scrollbar px-4 gap-2 my-4 shrink-0">
-                <button class="cat-tab ${this.activeCategory === 'all' ? 'bg-primary text-white' : 'bg-[#F1EFE9] text-text-sub'} flex-none px-4 py-1.5 rounded-full text-[13px] font-body font-medium transition-all" data-category="all">Tất cả</button>
-                ${["starter", "main", "drink", "dessert"].map(cat => `
-                    <button class="cat-tab ${this.activeCategory === cat ? 'bg-primary text-white' : 'bg-[#F1EFE9] text-text-sub'} flex-none px-4 py-1.5 rounded-full text-[13px] font-body font-medium transition-all" data-category="${cat}">${cat === 'starter' ? 'Khai vị' : cat === 'main' ? 'Món chính' : cat === 'drink' ? 'Đồ uống' : 'Tráng miệng'}</button>
-                `).join('')}
-            </div>
+                <div class="flex overflow-x-auto no-scrollbar px-4 gap-2 my-4 shrink-0">
+                    <button class="cat-tab ${this.activeCategory === 'all' ? 'bg-primary text-white' : 'bg-[#F1EFE9] text-text-sub'} flex-none px-4 py-1.5 rounded-full text-[13px] font-body font-medium transition-all" data-category="all">Tất cả</button>
+                    ${["starter", "main", "drink", "dessert"].map(cat => `
+                        <button class="cat-tab ${this.activeCategory === cat ? 'bg-primary text-white' : 'bg-[#F1EFE9] text-text-sub'} flex-none px-4 py-1.5 rounded-full text-[13px] font-body font-medium transition-all" data-category="${cat}">${cat === 'starter' ? 'Khai vị' : cat === 'main' ? 'Món chính' : cat === 'drink' ? 'Đồ uống' : 'Tráng miệng'}</button>
+                    `).join('')}
+                </div>
 
-            <main class="flex-1 overflow-y-auto no-scrollbar p-4 h-full">
-                <div id="menu-list" class="space-y-4 pb-20"></div>
-            </main>
+                <main class="flex-1 overflow-y-auto no-scrollbar p-4">
+                    <div id="menu-list" class="space-y-4 pb-28"></div>
+                </main>
+            </div>
         `;
 
         this.init(container);
@@ -63,15 +65,12 @@ const MenuComponent = {
                 <div class="flex-1">
                     <div class="flex justify-between items-start mb-1">
                         <h4 class="font-display font-bold text-[15px] text-text-main">${d.name}</h4>
-                        <span class="text-[12px] font-mono font-bold text-primary-orange">${formatCurrency(d.price)}</span>
+                        <span class="text-[14px] font-price font-bold text-primary-orange">${formatCurrency(d.price)}</span>
                     </div>
                     <div class="flex items-center justify-between">
                         <span class="text-[11px] text-text-muted uppercase tracking-wider">${d.category}</span>
                         <div class="flex items-center gap-2">
                             <span class="text-[11px] ${d.available ? 'text-status-ready' : 'text-text-muted'} font-bold">${d.available ? 'Còn hàng' : 'Hết hàng'}</span>
-                            <div class="w-8 h-4 ${d.available ? 'bg-status-ready' : 'bg-slate-300'} rounded-full relative transition-colors cursor-pointer" onclick="MenuComponent.toggleAvailable(${d.id})">
-                                <div class="size-3 bg-white rounded-full absolute top-0.5 ${d.available ? 'right-0.5' : 'left-0.5'} transition-all"></div>
-                            </div>
                         </div>
                     </div>
                 </div>

@@ -38,6 +38,9 @@ const router = {
             case 'orders':
                 headerTitle.innerText = "Đơn hàng";
                 OrdersComponent.render(appView, params);
+                if (params.table && params.quickview) {
+                    OrdersComponent.handleTableQuickView(params.table);
+                }
                 break;
             case 'table-map':
                 headerTitle.innerText = "Sơ đồ bàn";

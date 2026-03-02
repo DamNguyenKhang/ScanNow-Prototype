@@ -167,7 +167,7 @@ const CreateOrderComponent = {
                     </div>
                     <div class="flex-1 min-w-0 py-0.5 flex flex-col justify-between">
                         <div><h4 class="font-display font-bold text-[15px] text-text-main truncate">${d.name}</h4><span class="text-[10px] font-bold text-text-muted uppercase tracking-wider">${d.category}</span></div>
-                        <span class="font-mono font-bold text-[15px] text-primary-orange">${formatCurrency(d.price)}</span>
+                        <span class="font-price font-bold text-[17px] text-primary-orange">${formatCurrency(d.price)}</span>
                     </div>
                     <div class="flex items-center self-center shrink-0">
                         ${!d.available ? `<span class="bg-slate-100 text-text-muted px-2 py-1 rounded-lg text-[10px] font-bold">Hết</span>` : (
@@ -255,9 +255,9 @@ const CreateOrderComponent = {
                     `;
         }).join('')}
             </div>
-            <div class="mt-8 flex justify-between items-end border-t border-border-main pt-6">
-                <span class="font-bold text-text-sub">Tổng cộng ${this.isAddMode ? 'thêm' : ''}</span>
-                <span class="font-mono font-bold text-[24px] text-primary">${formatCurrency(totalPrice)}</span>
+            <div class="mt-8 p-4 bg-slate-50 rounded-xl flex justify-between items-center">
+                <span class="font-display font-bold text-text-main">Tạm tính ${this.isAddMode ? 'thêm' : ''}</span>
+                <span class="font-price font-bold text-[26px] text-primary">${formatCurrency(totalPrice)}</span>
             </div>
         `;
         document.getElementById('cart-sheet').classList.remove('hidden');
@@ -270,24 +270,49 @@ const CreateOrderComponent = {
     },
 
     submitOrder: function () {
-        if (!this.selectedTableId) return alert("Vui lòng chọn bàn!");
-        if (this.cart.length === 0) return alert("Giỏ hàng đang trống!");
+        if (!this.selectedTableId) return showToast("Vui lòng chọn bàn!", 'error');
+        if (this.cart.length === 0) return showToast("Giỏ hàng đang trống!", 'error');
 
-        const orderId = this.isEditMode ? this.editOrderId : (this.isAddMode ? null : `ORD-${Date.now().toString().slice(-6)}`);
+        if (this.isAddMode) {
+            // Find existing order for this table
+            const orderToUpdate = orders.find(o => o.table === this.selectedTableId && o.status !== 'completed' && o.status !== 'cancelled' && o.status !== 'paying');
 
-        if (this.isAddMode || this.isEditMode) {
-            // Find existing order for this table/id and update items
-            const orderToUpdate = this.isEditMode ? orders.find(o => o.id === this.editOrderId) : orders.find(o => o.table === this.selectedTableId && o.status !== 'completed');
-
+            if (orderToUpdate) {
+                // Add new items to existing order
+                this.cart.forEach(item => {
+                    const dish = dishes.find(d => d.id === item.dishId);
+                    orderToUpdate.items.push({
+                        name: dish.name,
+                        qty: item.qty,
+                        price: dish.price,
+                        status: 'pending',
+                        timestamp: new Date()
+                    });
+                });
+                showToast(`Đã thêm món vào bàn ${this.selectedTableId} thành công!`);
+            } else {
+                showToast("Không tìm thấy đơn hàng đang hoạt động của bàn này!", 'error');
+                return;
+            }
+        } else if (this.isEditMode) {
+            const orderToUpdate = orders.find(o => o.id === this.editOrderId);
             if (orderToUpdate) {
                 orderToUpdate.items = this.cart.map(item => {
                     const dish = dishes.find(d => d.id === item.dishId);
-                    return { name: dish.name, qty: item.qty, price: dish.price, status: 'pending' };
+                    // Keep existing status if it was already there, otherwise pending
+                    const existing = orderToUpdate.items.find(i => i.name === dish.name);
+                    return {
+                        name: dish.name,
+                        qty: item.qty,
+                        price: dish.price,
+                        status: existing ? existing.status : 'pending'
+                    };
                 });
-                alert(`Đã cập nhật đơn hàng bàn ${this.selectedTableId} thành công!`);
+                showToast(`Đã cập nhật đơn hàng thành công!`);
             }
         } else {
             // Create new order
+            const orderId = `ORD-${Date.now().toString().slice(-6)}`;
             const newOrder = {
                 id: orderId,
                 table: this.selectedTableId,
@@ -308,7 +333,7 @@ const CreateOrderComponent = {
                 table.startTime = new Date();
                 table.orderId = orderId;
             }
-            alert(`Đã tạo đơn mới cho bàn ${this.selectedTableId} thành công!`);
+            showToast(`Đã tạo đơn mới cho bàn ${this.selectedTableId} thành công!`);
         }
 
         this.cart = [];

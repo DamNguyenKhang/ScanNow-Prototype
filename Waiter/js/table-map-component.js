@@ -1,17 +1,19 @@
 const TableMapComponent = {
     render: function (container, params) {
         container.innerHTML = `
-            <!-- LEGEND -->
-            <div class="px-4 py-3 flex gap-4 bg-white border-b border-border-main shrink-0">
-                <div class="flex items-center gap-1.5"><span class="size-2.5 bg-status-empty rounded-full"></span><span class="text-[11px] font-medium text-text-sub">Trống</span></div>
-                <div class="flex items-center gap-1.5"><span class="size-2.5 bg-status-occupied rounded-full"></span><span class="text-[11px] font-medium text-text-sub">Có khách</span></div>
-                <div class="flex items-center gap-1.5"><span class="size-2.5 bg-status-suspended rounded-full"></span><span class="text-[11px] font-medium text-text-sub">Ngưng dùng</span></div>
-            </div>
+            <div class="flex flex-col h-full">
+                <!-- LEGEND -->
+                <div class="px-4 py-3 flex gap-4 bg-white border-b border-border-main shrink-0">
+                    <div class="flex items-center gap-1.5"><span class="size-2.5 bg-status-empty rounded-full"></span><span class="text-[11px] font-medium text-text-sub">Trống</span></div>
+                    <div class="flex items-center gap-1.5"><span class="size-2.5 bg-status-occupied rounded-full"></span><span class="text-[11px] font-medium text-text-sub">Có khách</span></div>
+                    <div class="flex items-center gap-1.5"><span class="size-2.5 bg-status-suspended rounded-full"></span><span class="text-[11px] font-medium text-text-sub">Ngưng dùng</span></div>
+                </div>
 
-            <!-- TABLE GRID -->
-            <main class="flex-1 overflow-y-auto no-scrollbar p-4 h-full">
-                <div class="grid grid-cols-3 gap-4 pb-20" id="table-grid"></div>
-            </main>
+                <!-- TABLE GRID -->
+                <main class="flex-1 overflow-y-auto no-scrollbar p-4">
+                    <div class="grid grid-cols-3 gap-4 pb-28" id="table-grid"></div>
+                </main>
+            </div>
 
             <!-- TABLE DETAIL SHEET -->
             <div id="sheet-overlay-tables" class="fixed inset-0 bg-black/40 z-[60] opacity-0 pointer-events-none transition-opacity duration-300" onclick="TableMapComponent.closeTableDetail()"></div>
@@ -73,9 +75,9 @@ const TableMapComponent = {
                     <button onclick="router.navigate('create-order', {table: '${t.id}', mode: 'add'})" class="h-12 bg-primary text-white font-display font-bold rounded-xl shadow-lg flex items-center justify-center gap-2">
                         <span class="material-symbols-outlined text-[20px]">add_circle</span> Thêm món
                     </button>
-                    <button onclick="router.navigate('orders', {table: '${t.id}'})" class="h-12 border border-primary text-primary font-display font-bold rounded-xl active:bg-primary/5">Xem đơn</button>
+                    <button onclick="router.navigate('orders', {table: '${t.id}', quickview: true})" class="h-12 border border-primary text-primary font-display font-bold rounded-xl active:bg-primary/5 shadow-sm">Xem đơn hàng</button>
                 </div>
-                <button onclick="TableMapComponent.completeTable('${t.id}')" class="w-full h-12 border border-slate-200 text-text-sub font-bold rounded-xl active:bg-slate-50 transition-colors">Hoàn tất dọn dẹp</button>
+                <button onclick="TableMapComponent.completeTable('${t.id}')" class="w-full h-12 bg-slate-50 text-text-sub font-bold rounded-[14px] active:bg-slate-100 transition-colors mt-2">Dọn dẹp bàn & Đóng đơn</button>
             ` : t.status === 'empty' ? `
                 <button onclick="router.navigate('create-order', {table: '${t.id}'})" class="w-full h-12 bg-status-ready text-white font-display font-bold rounded-xl flex items-center justify-center gap-2"><span class="material-symbols-outlined text-[20px]">add</span> Mở bàn / Tạo đơn mới</button>
             ` : ''}
@@ -103,6 +105,7 @@ const TableMapComponent = {
                 t.status = 'empty';
                 t.orderId = null;
                 t.startTime = null;
+                showToast(`Đã dọn dẹp xong bàn ${id}!`);
                 this.renderTables(document.getElementById('table-grid'));
                 this.closeTableDetail();
             }
