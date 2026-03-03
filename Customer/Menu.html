@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>ScanNow Customer Menu</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#f97316","primary-dark": "#c2410c",
+                        "secondary": "#2563EB", 
+                        "background-light": "#F8F7F4","background-dark": "#23170f",
+                        "surface-light": "#ffffff",
+                        "surface-dark": "#2d241e",
+                        "text-main": "#181411",
+                        "text-muted": "#8c725f",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"],
+                        "mono": ["DM Mono", "monospace"],
+                    },
+                    borderRadius: {"DEFAULT": "0.5rem", "lg": "1rem", "xl": "1.5rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+    <style>
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+        body { min-height: max(884px, 100dvh); }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 font-display antialiased min-h-screen flex justify-center">
+<div class="relative w-full max-w-md mx-auto bg-background-light dark:bg-background-dark shadow-xl min-h-screen flex flex-col pb-24">
+    <!-- Header -->
+    <header class="sticky top-0 z-50 bg-background-light/95 dark:bg-background-dark/95 backdrop-blur-sm p-4 flex items-center justify-between border-b border-primary/10">
+        <div class="flex items-center gap-2">
+            <span class="material-symbols-outlined text-secondary text-3xl">qr_code_scanner</span>
+            <h2 class="text-secondary text-xl font-extrabold leading-tight tracking-tight">ScanNow</h2>
+        </div>
+        <div class="flex items-center justify-center bg-primary/10 dark:bg-primary/20 px-3 py-1.5 rounded-full">
+            <span class="material-symbols-outlined text-primary text-sm mr-1">table_restaurant</span>
+            <p class="text-primary text-sm font-bold leading-normal">Table A3</p>
+        </div>
+    </header>
+
+    <!-- Info -->
+    <div class="px-4 py-4 w-full">
+        <div class="relative w-full h-[140px] rounded-xl overflow-hidden shadow-lg group">
+            <div class="absolute inset-0 bg-cover bg-center transition-transform duration-500 group-hover:scale-105" data-alt="Interior of a modern cozy restaurant" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuC59NpAIhowTxfZRauIxg9FgcFxrlNFil9TUAKZw6WSdyJllcToniHVgx9gA44L1CEN2RX9osL4PLSJ1Co7DcApTeWxaaiqzmG3pB5zX-5weOB7gcdNThkHZ-xOQ4d9PsPbyyI42M6aQAG0Hf533jqlM0hh9VQUlOUs_Cfx5nuskt5lhgFIYkvJStFby1ODSRzpbjRkKavXTp5VYC-RiP_-5iJByZpWJtgplifBw204c51UsmFnk99j5huw6SqSbrTjphZurPqP5pA");'></div>
+            <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
+            <div class="absolute bottom-0 left-0 p-4 w-full">
+                <h1 class="text-white text-2xl font-bold leading-tight drop-shadow-md">The Golden Spoon</h1>
+                <div class="flex items-center gap-1 mt-1">
+                    <span class="material-symbols-outlined text-yellow-400 text-sm fill-1">star</span>
+                    <span class="text-white/90 text-xs font-medium">4.8 (120+ reviews)</span>
+                    <span class="text-white/60 text-xs mx-1">•</span>
+                    <span class="text-white/90 text-xs font-medium">Asian Fusion</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Categories -->
+    <div class="sticky top-[68px] z-40 bg-background-light dark:bg-background-dark pt-0 pb-2">
+        <div class="flex gap-2 px-4 overflow-x-auto no-scrollbar py-2">
+            <button class="flex shrink-0 items-center justify-center px-5 py-2 rounded-full bg-primary shadow-sm shadow-primary/30 transition-all active:scale-95">
+                <p class="text-white text-sm font-semibold">All</p>
+            </button>
+            <button class="flex shrink-0 items-center justify-center px-5 py-2 rounded-full bg-white dark:bg-surface-dark border border-slate-100 dark:border-slate-800 shadow-sm transition-all active:scale-95 hover:bg-slate-50 dark:hover:bg-white/5">
+                <p class="text-slate-600 dark:text-slate-300 text-sm font-medium">Appetizer</p>
+            </button>
+            <button class="flex shrink-0 items-center justify-center px-5 py-2 rounded-full bg-white dark:bg-surface-dark border border-slate-100 dark:border-slate-800 shadow-sm transition-all active:scale-95 hover:bg-slate-50 dark:hover:bg-white/5">
+                <p class="text-slate-600 dark:text-slate-300 text-sm font-medium">Main</p>
+            </button>
+            <button class="flex shrink-0 items-center justify-center px-5 py-2 rounded-full bg-white dark:bg-surface-dark border border-slate-100 dark:border-slate-800 shadow-sm transition-all active:scale-95 hover:bg-slate-50 dark:hover:bg-white/5">
+                <p class="text-slate-600 dark:text-slate-300 text-sm font-medium">Drinks</p>
+            </button>
+            <button class="flex shrink-0 items-center justify-center px-5 py-2 rounded-full bg-white dark:bg-surface-dark border border-slate-100 dark:border-slate-800 shadow-sm transition-all active:scale-95 hover:bg-slate-50 dark:hover:bg-white/5">
+                <p class="text-slate-600 dark:text-slate-300 text-sm font-medium">Dessert</p>
+            </button>
+        </div>
+    </div>
+
+    <!-- Items -->
+    <div class="flex flex-col gap-4 px-4 mt-2" id="menu-items">
+        <h3 class="text-lg font-bold text-slate-800 dark:text-slate-100 mt-2">Recommended</h3>
+        
+        <!-- Item 1 -->
+        <div onclick="window.location.href='Detail.html'" class="cursor-pointer group bg-surface-light dark:bg-surface-dark p-3 rounded-xl shadow-sm border border-transparent hover:border-primary/20 transition-all flex gap-3">
+            <div class="relative shrink-0 size-[88px] rounded-lg overflow-hidden bg-slate-100 dark:bg-slate-800">
+                <div class="w-full h-full bg-cover bg-center transition-transform duration-500 group-hover:scale-110" data-alt="Spicy seafood noodle soup bowl" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuAPjk-H-3sQbLSwBDq8w0Kqy_Vs4g8hiK_HWx-Rd2QElBR_RReDyJByPi1Y19CJAekgeFsh858i1HSQvgoBLKlK-QHKGhFR8Tanfip5ap01yE50ZXDbMuQHYOsOlQV_U9CAxgC3FOTj6IvOro1okzENuFTLjlPcT2VgrGqP0wDb4KGDTAedzs-yWNtdKPbzjU9tFl9WNpPnPQ4n_pMdvoWKOHwVZqopKgCYmlH-mIZxgMveaiOpjIiZRg3OVswBbtLdMwX1N_UZjLw");'></div>
+            </div>
+            <div class="flex flex-col flex-1 justify-between py-0.5">
+                <div>
+                    <h4 class="text-text-main dark:text-slate-100 text-base font-bold leading-tight line-clamp-1">Spicy Seafood Noodles</h4>
+                    <p class="text-text-muted dark:text-slate-400 text-xs font-normal leading-relaxed mt-1 line-clamp-2">Fresh seafood with spicy broth and handmade noodles.</p>
+                </div>
+                <div class="flex items-end justify-between mt-2">
+                    <span class="font-mono text-slate-900 dark:text-white font-medium text-sm tracking-tight">125.000 ₫</span>
+                    <button onclick="event.stopPropagation(); addToCart(125000)" class="size-8 flex items-center justify-center rounded-lg bg-primary hover:bg-primary-dark text-white shadow-sm shadow-primary/30 transition-colors cursor-pointer active:scale-95">
+                        <span class="material-symbols-outlined text-xl">add</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Item 2 -->
+        <div onclick="window.location.href='Detail.html'" class="cursor-pointer group bg-surface-light dark:bg-surface-dark p-3 rounded-xl shadow-sm border border-transparent hover:border-primary/20 transition-all flex gap-3">
+            <div class="relative shrink-0 size-[88px] rounded-lg overflow-hidden bg-slate-100 dark:bg-slate-800">
+                <div class="w-full h-full bg-cover bg-center transition-transform duration-500 group-hover:scale-110" data-alt="Grilled pork ribs with rice" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuANc4L05p2z9DpyL6lBlmyHPd3XGxKqsHWztrmn5MprsUiMQkx0y5nzx_KejGFNDlyPIEjhrBVJ5ztP7eJTYBJNLoBDGRnWqvV8M0VTpTbP3Fm47BW5u_oWvpqLJrRuLtjScdpQgyadDKRY2b-kKaGhIXr5HAJo-uAXTLWONrTDtnaK7xa424dJB4adWcdfoosyU1xzPlwNJJM7biolsfI6QE3PUrbBuhXg6YOVnkB6C51okAQNAfABlCEt2ELQUi_vTKmuJrF5Y8M");'></div>
+            </div>
+            <div class="flex flex-col flex-1 justify-between py-0.5">
+                <div>
+                    <h4 class="text-text-main dark:text-slate-100 text-base font-bold leading-tight line-clamp-1">Grilled Pork Rice</h4>
+                    <p class="text-text-muted dark:text-slate-400 text-xs font-normal leading-relaxed mt-1 line-clamp-2">Marinated pork served with jasmine rice.</p>
+                </div>
+                <div class="flex items-end justify-between mt-2">
+                    <span class="font-mono text-slate-900 dark:text-white font-medium text-sm tracking-tight">95.000 ₫</span>
+                    <!-- Replaced add button style dynamically for variety in UI -->
+                    <button onclick="event.stopPropagation(); addToCart(95000)" class="size-8 flex items-center justify-center rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-primary hover:text-white transition-colors cursor-pointer active:scale-95">
+                        <span class="material-symbols-outlined text-xl">add</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Item 3 -->
+        <div onclick="window.location.href='Detail.html'" class="cursor-pointer group bg-surface-light dark:bg-surface-dark p-3 rounded-xl shadow-sm border border-transparent hover:border-primary/20 transition-all flex gap-3">
+            <div class="relative shrink-0 size-[88px] rounded-lg overflow-hidden bg-slate-100 dark:bg-slate-800">
+                <div class="w-full h-full bg-cover bg-center transition-transform duration-500 group-hover:scale-110" data-alt="Refreshing berry summer drink" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCtbiSDC7ioYVrGWpODoGQT7F5T6d8lQy7_Szp9abCXdyIKsd7sVRglkmI-K7AaG5oc5oT2D6bSdm1OzvnXnlCtEp097P1VEbYK96-Ujni5P-wZpzvRzfQfD4-s7rwWeCHYH-qgrCDZcoqGc_LLO8HG4wbEH97-npj-KNNvWp5i2CPL85-4MxeVKIzGnaTYwi30FC-VmcwyX5XQyuuE_y9rUBrz3gUQcjZKz3RdCgip6pXA9CZaR-tlJaAw0erH1X0qvHtIXostcj0");'></div>
+            </div>
+            <div class="flex flex-col flex-1 justify-between py-0.5">
+                <div>
+                    <h4 class="text-text-main dark:text-slate-100 text-base font-bold leading-tight line-clamp-1">Summer Berry Fizz</h4>
+                    <p class="text-text-muted dark:text-slate-400 text-xs font-normal leading-relaxed mt-1 line-clamp-2">Sparkling soda with mix berries.</p>
+                </div>
+                <div class="flex items-end justify-between mt-2">
+                    <span class="font-mono text-slate-900 dark:text-white font-medium text-sm tracking-tight">65.000 ₫</span>
+                    <button onclick="event.stopPropagation(); addToCart(65000)" class="size-8 flex items-center justify-center rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-primary hover:text-white transition-colors cursor-pointer active:scale-95">
+                        <span class="material-symbols-outlined text-xl">add</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="h-24"></div>
+    </div>
+
+    <!-- Floating Cart -->
+    <div class="fixed bottom-0 left-0 w-full z-50 p-4 pointer-events-none transition-transform duration-300" id="cart-popup">
+        <div class="max-w-md mx-auto pointer-events-auto">
+            <button onclick="window.location.href='Cart.html'" class="w-full bg-gradient-to-r from-primary to-orange-400 text-white rounded-xl shadow-lg shadow-orange-500/30 p-4 flex items-center justify-between transition-transform active:scale-95 group hover:scale-[1.02]">
+                <div class="flex items-center gap-3">
+                    <div class="bg-white/20 backdrop-blur-sm size-8 rounded-lg flex items-center justify-center font-bold text-sm" id="cart-count">3</div>
+                    <div class="flex flex-col items-start">
+                        <span class="text-xs text-white/90 font-medium">Total</span>
+                        <span class="font-mono text-lg font-bold leading-none" id="cart-total">392.700 ₫</span>
+                    </div>
+                </div>
+                <div class="flex items-center gap-2">
+                    <span class="text-sm font-bold">View Cart</span>
+                    <span class="material-symbols-outlined text-lg group-hover:translate-x-1 transition-transform">arrow_forward</span>
+                </div>
+            </button>
+        </div>
+    </div>
+</div>
+
+<script>
+    let currentTotal = 392700;
+    let currentCount = 3;
+
+    function formatVND(amount) {
+        return amount.toLocaleString('vi-VN') + ' ₫';
+    }
+
+    function addToCart(price) {
+        currentTotal += price;
+        currentCount += 1;
+        
+        document.getElementById('cart-count').innerText = currentCount;
+        document.getElementById('cart-total').innerText = formatVND(currentTotal);
+        
+        // Bounce animation for cart
+        const cart = document.getElementById('cart-popup');
+        cart.classList.add('scale-105');
+        setTimeout(() => {
+            cart.classList.remove('scale-105');
+        }, 150);
+    }
+</script>
+</body>
+</html>

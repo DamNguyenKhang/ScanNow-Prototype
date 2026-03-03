@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>ScanNow Food Details</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Nunito:wght@600;700;800&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#f97316",
+                        "primary-dark": "#c2410c",
+                        "background-light": "#F8F7F4",
+                        "background-dark": "#23170f",
+                        "surface-light": "#ffffff",
+                        "surface-dark": "#2d241e",
+                        "text-main": "#181411",
+                        "text-muted": "#8c725f",
+                    },
+                    fontFamily: {
+                        "display": ["Nunito", "sans-serif"],
+                        "body": ["Inter", "sans-serif"],
+                        "mono": ["DM Mono", "monospace"],
+                    },
+                },
+            },
+        }
+    </script>
+    <style>
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+        body { min-height: max(884px, 100dvh); }
+        input[type="radio"]:checked, input[type="checkbox"]:checked {
+            background-color: #f97316; border-color: #f97316; color: #f97316;
+        }
+        input[type="radio"]:focus, input[type="checkbox"]:focus {
+            --tw-ring-color: #f97316;
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 font-body antialiased min-h-screen flex justify-center">
+<div class="relative w-full max-w-md mx-auto bg-background-light dark:bg-background-dark shadow-xl min-h-screen flex flex-col">
+    <div class="relative w-full h-[300px] shrink-0">
+        <div class="absolute inset-0 bg-cover bg-center" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuAPjk-H-3sQbLSwBDq8w0Kqy_Vs4g8hiK_HWx-Rd2QElBR_RReDyJByPi1Y19CJAekgeFsh858i1HSQvgoBLKlK-QHKGhFR8Tanfip5ap01yE50ZXDbMuQHYOsOlQV_U9CAxgC3FOTj6IvOro1okzENuFTLjlPcT2VgrGqP0wDb4KGDTAedzs-yWNtdKPbzjU9tFl9WNpPnPQ4n_pMdvoWKOHwVZqopKgCYmlH-mIZxgMveaiOpjIiZRg3OVswBbtLdMwX1N_UZjLw");'>
+            <div class="absolute inset-0 bg-gradient-to-b from-black/40 via-transparent to-black/10"></div>
+        </div>
+        <div class="absolute top-0 left-0 w-full p-4 flex justify-between items-center z-10">
+            <!-- BACK BUTTON -->
+            <button onclick="window.location.href='Menu.html'" class="size-10 rounded-full bg-white/20 backdrop-blur-md flex items-center justify-center text-white hover:bg-white/30 transition-colors">
+                <span class="material-symbols-outlined">arrow_back</span>
+            </button>
+            <button class="size-10 rounded-full bg-white/20 backdrop-blur-md flex items-center justify-center text-white hover:bg-white/30 transition-colors">
+                <span class="material-symbols-outlined">share</span>
+            </button>
+        </div>
+    </div>
+    
+    <div class="relative -mt-6 flex-1 bg-surface-light dark:bg-surface-dark rounded-t-[2rem] px-6 pt-8 pb-32 shadow-lg isolate z-0">
+        <div class="flex flex-col gap-2 mb-4">
+            <div class="flex justify-between items-start">
+                <h1 class="font-display text-2xl font-bold text-text-main dark:text-white leading-tight">Spicy Seafood Noodles</h1>
+            </div>
+            <div class="flex items-center gap-4 text-sm">
+                <div class="flex items-center gap-1">
+                    <span class="material-symbols-outlined text-amber-400 fill-1 text-lg">star</span>
+                    <span class="font-bold text-text-main dark:text-white">4.8</span>
+                    <span class="text-text-muted dark:text-slate-400">(120+ reviews)</span>
+                </div>
+            </div>
+            <div class="flex gap-2 mt-2">
+                <span class="inline-flex items-center px-2.5 py-1 rounded-lg text-xs font-bold bg-red-50 text-red-600 border border-red-100">
+                    <span class="material-symbols-outlined text-sm mr-1">local_fire_department</span> Hot
+                </span>
+                <span class="inline-flex items-center px-2.5 py-1 rounded-lg text-xs font-bold bg-amber-50 text-amber-600 border border-amber-100">
+                    <span class="material-symbols-outlined text-sm mr-1">stars</span> Bestseller
+                </span>
+            </div>
+        </div>
+        <div class="mb-8">
+            <p class="text-text-muted dark:text-slate-400 text-sm leading-relaxed font-normal">
+                A signature dish featuring hand-pulled noodles in a rich, spicy broth simmered for 12 hours. Served with fresh tiger prawns, mussels, squid rings, and topped with chopped scallions and chili oil.
+            </p>
+        </div>
+        
+        <div class="space-y-6">
+            <div>
+                <h3 class="font-display text-lg font-bold text-text-main dark:text-white mb-3">Spice Level</h3>
+                <div class="space-y-3">
+                    <label class="flex items-center justify-between p-3 rounded-xl border border-slate-100 has-[:checked]:border-primary has-[:checked]:bg-orange-50/50 transition-all cursor-pointer">
+                        <div class="flex items-center gap-3">
+                            <input class="text-primary focus:ring-primary border-slate-300 w-5 h-5" name="spice_level" type="radio"/>
+                            <span class="text-sm font-medium text-slate-700">Mild</span>
+                        </div>
+                    </label>
+                    <label class="flex items-center justify-between p-3 rounded-xl border border-slate-100 has-[:checked]:border-primary has-[:checked]:bg-orange-50/50 transition-all cursor-pointer">
+                        <div class="flex items-center gap-3">
+                            <input checked="" class="text-primary focus:ring-primary border-slate-300 w-5 h-5" name="spice_level" type="radio"/>
+                            <span class="text-sm font-medium text-slate-700">Medium</span>
+                        </div>
+                    </label>
+                    <label class="flex items-center justify-between p-3 rounded-xl border border-slate-100 has-[:checked]:border-primary has-[:checked]:bg-orange-50/50 transition-all cursor-pointer">
+                        <div class="flex items-center gap-3">
+                            <input class="text-primary focus:ring-primary border-slate-300 w-5 h-5" name="spice_level" type="radio"/>
+                            <span class="text-sm font-medium text-slate-700">Spicy</span>
+                        </div>
+                    </label>
+                </div>
+            </div>
+            
+            <div>
+                <h3 class="font-display text-lg font-bold text-text-main dark:text-white mb-3">Extra Toppings</h3>
+                <div class="space-y-3">
+                    <label class="flex items-center justify-between p-3 rounded-xl border border-slate-100 has-[:checked]:border-primary has-[:checked]:bg-orange-50/50 transition-all cursor-pointer">
+                        <div class="flex items-center gap-3">
+                            <input class="text-primary rounded focus:ring-primary border-slate-300 w-5 h-5" name="topping_shrimp" type="checkbox"/>
+                            <span class="text-sm font-medium text-slate-700">Extra Shrimp</span>
+                        </div>
+                        <span class="text-sm font-semibold text-primary">+20k</span>
+                    </label>
+                    <label class="flex items-center justify-between p-3 rounded-xl border border-slate-100 has-[:checked]:border-primary has-[:checked]:bg-orange-50/50 transition-all cursor-pointer">
+                        <div class="flex items-center gap-3">
+                            <input class="text-primary rounded focus:ring-primary border-slate-300 w-5 h-5" name="topping_squid" type="checkbox"/>
+                            <span class="text-sm font-medium text-slate-700">Squid</span>
+                        </div>
+                        <span class="text-sm font-semibold text-primary">+15k</span>
+                    </label>
+                </div>
+            </div>
+            
+            <div>
+                <h3 class="font-display text-lg font-bold text-text-main dark:text-white mb-3">Special Instructions</h3>
+                <textarea class="w-full rounded-xl border-slate-200 bg-slate-50 text-sm p-3 focus:ring-primary focus:border-primary resize-none" placeholder="Add a note (e.g. no onions)" rows="3"></textarea>
+            </div>
+        </div>
+    </div>
+    
+    <div class="fixed bottom-0 left-0 w-full z-50 bg-white border-t border-slate-100 p-4 shadow-[0_-4px_20px_rgba(0,0,0,0.05)]">
+        <div class="max-w-md mx-auto flex items-center gap-4">
+            <div class="flex items-center bg-background-light rounded-xl h-14 px-2 shrink-0 border border-slate-100">
+                <button class="size-10 flex items-center justify-center text-slate-500 hover:text-primary active:scale-90 transition-all">
+                    <span class="material-symbols-outlined">remove</span>
+                </button>
+                <span class="w-8 text-center font-bold text-lg text-text-main">1</span>
+                <button class="size-10 flex items-center justify-center text-slate-500 hover:text-primary active:scale-90 transition-all">
+                    <span class="material-symbols-outlined">add</span>
+                </button>
+            </div>
+            <!-- ADD TO CART BUTTON (For now, just redirects back to Menu or Cart) -->
+            <button onclick="window.location.href='Cart.html'" class="flex-1 bg-primary hover:bg-primary-dark text-white rounded-xl h-14 font-bold text-base shadow-lg shadow-orange-500/20 active:scale-[0.98] transition-all flex items-center justify-center gap-2">
+                <span>Add to Cart</span>
+                <span class="w-1 h-1 bg-white/50 rounded-full"></span>
+                <span>125.000 ₫</span>
+            </button>
+        </div>
+    </div>
+</div>
+</body>
+</html>

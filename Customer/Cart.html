@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>ScanNow Cart Checkout</title>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#f97415",
+                        "background-light": "#f8f7f5",
+                        "background-dark": "#23170f",
+                    },
+                    fontFamily: {
+                        "display": ["Inter"]
+                    },
+                    borderRadius: {"DEFAULT": "0.5rem", "lg": "1rem", "xl": "1.5rem", "full": "9999px"},
+                },
+            },
+        }
+</script>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+</style>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display min-h-screen flex flex-col items-center justify-start text-slate-900 dark:text-slate-100 antialiased">
+<!-- Mobile Container -->
+<div class="w-full max-w-md bg-white dark:bg-zinc-900 min-h-screen relative shadow-2xl flex flex-col overflow-hidden">
+<!-- Top App Bar -->
+<div class="sticky top-0 z-20 flex items-center bg-white dark:bg-zinc-900 px-4 py-3 justify-between border-b border-slate-100 dark:border-zinc-800">
+<!-- BACK BUTTON TO Menu.html -->
+<button onclick="window.location.href='Menu.html'" class="text-slate-800 dark:text-slate-200 flex size-10 shrink-0 items-center justify-center hover:bg-slate-100 dark:hover:bg-zinc-800 rounded-full transition-colors">
+<span class="material-symbols-outlined">arrow_back</span>
+</button>
+<h2 class="text-slate-900 dark:text-white text-lg font-bold leading-tight tracking-[-0.015em] flex-1 text-center pr-10">Cart (3)</h2>
+</div>
+<!-- Scrollable Content -->
+<div class="flex-1 overflow-y-auto pb-32">
+<!-- Hero / Table Info Card -->
+<div class="p-4">
+<div class="relative bg-cover bg-center flex flex-col items-stretch justify-end rounded-xl overflow-hidden h-48 shadow-lg group" data-alt="Warm lit restaurant interior table setting" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuD7BkXzgzQ9BW1PGzM_6uUXtTSezAJVqTYl_nkoJw7xcrFlSG09wAsLq200PB-haLm96N0PeElzCHazZV-SZAjddFzvNUasB9aWBi9_36cASfJy1ysRBNtI2gZ9-s0Kx60ApxhUJ8SaQ4fjqAOVdmEqq0chBAUCCHwmBdZCuBQR5PK0s7SNv_Eyoe-6D3yDR6lLGzqOUiFDRV1TmKeW7YeIIpV3vhA6hXi6Gxu7lcrEzjAW4reKKWJiiOPQxMdtAFotSc8WhPASxdc");'>
+<div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent"></div>
+<div class="relative z-10 flex w-full items-end justify-between gap-4 p-5">
+<div class="flex flex-1 flex-col gap-1">
+<div class="flex items-center gap-2 mb-1">
+<span class="material-symbols-outlined text-primary text-[20px] fill-1">table_restaurant</span>
+<p class="text-primary text-sm font-bold uppercase tracking-wider">Current Session</p>
+</div>
+<p class="text-white tracking-tight text-2xl font-bold leading-tight">Table A3 · District 1</p>
+<p class="text-slate-300 text-sm font-medium leading-normal">ScanNow - Restaurant</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Items List -->
+<div class="flex flex-col gap-1 px-4">
+<!-- Item 1 -->
+<div class="flex gap-4 bg-white dark:bg-zinc-800 p-3 rounded-xl border border-slate-100 dark:border-zinc-700 shadow-sm">
+<div class="relative shrink-0">
+<div class="bg-center bg-no-repeat bg-cover rounded-lg size-20 shadow-sm" data-alt="Bowl of spicy seafood noodles" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDZ6RLzbbCmz7sslPg6NopBx_jEzcuhC6bAxUm7uKXE0rgYwi6nj-Romlti45Qy301pf2G247IM7wfEBKG6RzuKgNmY7Q05uCSToGBJxCAoMJFg0qSsQDBdC1k7_5axumRyHdOUmqwKH3SCGCq2IGsuUdWqmDeIwRUvWDIwuVIJhdhvbz95hO79JITr7ogUNzqjnZHqZoIWwPmtesc2blhpWn8QCB5ZcTxS4Pv3AnRfZxwoxYb7QQOK0oFKJIMbz66xH3DkKvWyijg");'></div>
+</div>
+<div class="flex flex-1 flex-col justify-between py-0.5">
+<div class="flex justify-between items-start">
+<h3 class="text-slate-900 dark:text-white text-base font-semibold leading-tight line-clamp-2 pr-2">Spicy Seafood Noodles</h3>
+<button class="text-slate-400 hover:text-red-500 transition-colors">
+<span class="material-symbols-outlined text-[20px]">delete</span>
+</button>
+</div>
+<div class="flex items-center gap-2 text-slate-500 text-sm mt-1 mb-2">
+<span class="material-symbols-outlined text-[16px]">edit_note</span>
+<input class="bg-transparent border-0 border-b border-slate-200 dark:border-zinc-600 p-0 text-sm w-full focus:ring-0 focus:border-primary placeholder-slate-400 text-slate-600 dark:text-slate-300 h-6" placeholder="Add note..." type="text"/>
+</div>
+<div class="flex justify-between items-center mt-1">
+<p class="text-primary font-bold text-base">145.000 ₫</p>
+<div class="flex items-center gap-3 bg-slate-50 dark:bg-zinc-900 rounded-full px-1 py-1 border border-slate-100 dark:border-zinc-700">
+<button class="size-7 flex items-center justify-center rounded-full bg-white dark:bg-zinc-800 text-primary shadow-sm hover:bg-slate-50 dark:hover:bg-zinc-700 border border-slate-100 dark:border-zinc-600 transition-all">
+<span class="material-symbols-outlined text-[18px]">remove</span>
+</button>
+<span class="text-slate-900 dark:text-white text-sm font-semibold w-3 text-center">1</span>
+<button class="size-7 flex items-center justify-center rounded-full bg-primary text-white shadow-sm hover:bg-orange-600 transition-all">
+<span class="material-symbols-outlined text-[18px]">add</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Item 2 -->
+<div class="flex gap-4 bg-white dark:bg-zinc-800 p-3 rounded-xl border border-slate-100 dark:border-zinc-700 shadow-sm mt-3">
+<div class="relative shrink-0">
+<div class="bg-center bg-no-repeat bg-cover rounded-lg size-20 shadow-sm" data-alt="Plate of grilled pork skewers" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuAaColGoR45n0R-uuKGdClBoA1ZHYbBA0aUOuP1EPPyQPVPd02wXgbRt2XvwW-EQED2LNrQshpQGni2WXzOy9Ee6SxzOcXTcwqPr4eBKj6VLbsnN81df6d2EKKb10Us84VixQMeSK3GppnGPZ0c-dJNRbiOZ4JO7tUhSszcU4i7du2iH-upZ7MLrVbNdt6_Y7kAMmczL9GzfLgfhxCQULmVRBBqLEL68qABuQEHdSju8FizJgjEkIemtqWAbDpphJYf1-GfErTxGPY");'></div>
+</div>
+<div class="flex flex-1 flex-col justify-between py-0.5">
+<div class="flex justify-between items-start">
+<h3 class="text-slate-900 dark:text-white text-base font-semibold leading-tight line-clamp-2 pr-2">Grilled Pork Skewers</h3>
+<button class="text-slate-400 hover:text-red-500 transition-colors">
+<span class="material-symbols-outlined text-[20px]">delete</span>
+</button>
+</div>
+<div class="flex items-center gap-2 text-slate-500 text-sm mt-1 mb-2">
+<span class="material-symbols-outlined text-[16px]">edit_note</span>
+<input class="bg-transparent border-0 border-b border-slate-200 dark:border-zinc-600 p-0 text-sm w-full focus:ring-0 focus:border-primary placeholder-slate-400 text-slate-600 dark:text-slate-300 h-6" placeholder="Add note..." type="text"/>
+</div>
+<div class="flex justify-between items-center mt-1">
+<p class="text-primary font-bold text-base">85.000 ₫</p>
+<div class="flex items-center gap-3 bg-slate-50 dark:bg-zinc-900 rounded-full px-1 py-1 border border-slate-100 dark:border-zinc-700">
+<button class="size-7 flex items-center justify-center rounded-full bg-white dark:bg-zinc-800 text-primary shadow-sm hover:bg-slate-50 dark:hover:bg-zinc-700 border border-slate-100 dark:border-zinc-600 transition-all">
+<span class="material-symbols-outlined text-[18px]">remove</span>
+</button>
+<span class="text-slate-900 dark:text-white text-sm font-semibold w-3 text-center">2</span>
+<button class="size-7 flex items-center justify-center rounded-full bg-primary text-white shadow-sm hover:bg-orange-600 transition-all">
+<span class="material-symbols-outlined text-[18px]">add</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Item 3 -->
+<div class="flex gap-4 bg-white dark:bg-zinc-800 p-3 rounded-xl border border-slate-100 dark:border-zinc-700 shadow-sm mt-3">
+<div class="relative shrink-0">
+<div class="bg-center bg-no-repeat bg-cover rounded-lg size-20 shadow-sm" data-alt="Glass of iced lemongrass tea" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDK73MkqTn84KUTMbPG1pRTVdraODzx3wOqJC-sNQwiMyB-c5tjh235eSBq-FMjy2qlGqB7tulRpjtCcgPDFSmWqK2ES6swqtHqt5zZB_Vgqot-_DrgIa0F7rmZ5bhybYZg_zztq-pvdQQQT0PEL0D3Bv0nzBM-W1ajKLjTOtivM5JUU2aCePwj3PZridsRl0lHKo9bsKkx71cY7kbqtE3AvFcWj3jv8P9drMw_u87l88I0pqYBaeaeDGKus2FH1W3KrQXj9k7EuXg");'></div>
+</div>
+<div class="flex flex-1 flex-col justify-between py-0.5">
+<div class="flex justify-between items-start">
+<h3 class="text-slate-900 dark:text-white text-base font-semibold leading-tight line-clamp-2 pr-2">Iced Lemongrass Tea</h3>
+<button class="text-slate-400 hover:text-red-500 transition-colors">
+<span class="material-symbols-outlined text-[20px]">delete</span>
+</button>
+</div>
+<div class="flex items-center gap-2 text-slate-500 text-sm mt-1 mb-2">
+<span class="material-symbols-outlined text-[16px]">edit_note</span>
+<input class="bg-transparent border-0 border-b border-slate-200 dark:border-zinc-600 p-0 text-sm w-full focus:ring-0 focus:border-primary placeholder-slate-400 text-slate-600 dark:text-slate-300 h-6" placeholder="Add note..." type="text"/>
+</div>
+<div class="flex justify-between items-center mt-1">
+<p class="text-primary font-bold text-base">35.000 ₫</p>
+<div class="flex items-center gap-3 bg-slate-50 dark:bg-zinc-900 rounded-full px-1 py-1 border border-slate-100 dark:border-zinc-700">
+<button class="size-7 flex items-center justify-center rounded-full bg-white dark:bg-zinc-800 text-primary shadow-sm hover:bg-slate-50 dark:hover:bg-zinc-700 border border-slate-100 dark:border-zinc-600 transition-all">
+<span class="material-symbols-outlined text-[18px]">remove</span>
+</button>
+<span class="text-slate-900 dark:text-white text-sm font-semibold w-3 text-center">1</span>
+<button class="size-7 flex items-center justify-center rounded-full bg-primary text-white shadow-sm hover:bg-orange-600 transition-all">
+<span class="material-symbols-outlined text-[18px]">add</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Guest Info (Optional) -->
+<div class="p-4 mt-2">
+<div class="bg-white dark:bg-zinc-800 rounded-xl p-4 border border-slate-100 dark:border-zinc-700 shadow-sm">
+<h3 class="text-slate-900 dark:text-white font-bold text-base mb-3 flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-[20px]">person</span>
+                        Guest Information <span class="text-slate-400 font-normal text-xs ml-auto">(Optional)</span>
+</h3>
+<div class="flex flex-col gap-3">
+<div class="relative">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-[20px]">account_circle</span>
+<input class="pl-10 w-full bg-slate-50 dark:bg-zinc-900 border-slate-200 dark:border-zinc-600 rounded-lg text-sm py-2.5 focus:border-primary focus:ring-primary text-slate-800 dark:text-slate-200 placeholder-slate-400" placeholder="Your Name" type="text"/>
+</div>
+<div class="relative">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-[20px]">call</span>
+<input class="pl-10 w-full bg-slate-50 dark:bg-zinc-900 border-slate-200 dark:border-zinc-600 rounded-lg text-sm py-2.5 focus:border-primary focus:ring-primary text-slate-800 dark:text-slate-200 placeholder-slate-400" placeholder="Phone Number" type="tel"/>
+</div>
+</div>
+</div>
+</div>
+<!-- Order Summary -->
+<div class="px-4 pb-4">
+<div class="bg-white dark:bg-zinc-800 rounded-xl p-4 border border-slate-100 dark:border-zinc-700 shadow-sm">
+<h3 class="text-slate-900 dark:text-white font-bold text-base mb-4 flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-[20px]">receipt_long</span>
+                        Order Summary
+                    </h3>
+<div class="flex flex-col gap-2 border-b border-dashed border-slate-200 dark:border-zinc-600 pb-4 mb-4">
+<div class="flex justify-between items-center text-sm">
+<span class="text-slate-500 dark:text-slate-400">Subtotal</span>
+<span class="text-slate-900 dark:text-white font-medium">350.000 ₫</span>
+</div>
+<div class="flex justify-between items-center text-sm">
+<span class="text-slate-500 dark:text-slate-400">Service Fee (5%)</span>
+<span class="text-slate-900 dark:text-white font-medium">17.500 ₫</span>
+</div>
+<div class="flex justify-between items-center text-sm">
+<span class="text-slate-500 dark:text-slate-400">VAT (7%)</span>
+<span class="text-slate-900 dark:text-white font-medium">25.200 ₫</span>
+</div>
+</div>
+<div class="flex justify-between items-center">
+<span class="text-slate-900 dark:text-white font-bold text-lg">Total</span>
+<span class="text-primary font-bold text-xl">392.700 ₫</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Sticky Bottom CTA -->
+<div class="absolute bottom-0 left-0 w-full bg-white dark:bg-zinc-900 border-t border-slate-100 dark:border-zinc-800 p-4 shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.05)] z-20">
+<!-- CHECKOUT BUTTON TO Order-Status.html -->
+<button onclick="window.location.href='Order-Status.html'" class="w-full bg-primary hover:bg-orange-600 active:scale-[0.98] transition-all text-white font-bold text-lg py-3.5 rounded-xl shadow-lg shadow-orange-500/30 flex items-center justify-center gap-2 group">
+<span>Place Order Now</span>
+<span class="material-symbols-outlined group-hover:translate-x-1 transition-transform">arrow_forward</span>
+</button>
+</div>
+</div>
+</body>
+</html>
