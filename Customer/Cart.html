@@ -42,7 +42,7 @@
 <button onclick="window.location.href='Menu.html'" class="text-slate-800 dark:text-slate-200 flex size-10 shrink-0 items-center justify-center hover:bg-slate-100 dark:hover:bg-zinc-800 rounded-full transition-colors">
 <span class="material-symbols-outlined">arrow_back</span>
 </button>
-<h2 class="text-slate-900 dark:text-white text-lg font-bold leading-tight tracking-[-0.015em] flex-1 text-center pr-10">Cart (3)</h2>
+<h2 class="text-slate-900 dark:text-white text-lg font-bold leading-tight tracking-[-0.015em] flex-1 text-center pr-10" id="cart-header">Cart (0)</h2>
 </div>
 <!-- Scrollable Content -->
 <div class="flex-1 overflow-y-auto pb-32">
@@ -63,96 +63,8 @@
 </div>
 </div>
 <!-- Items List -->
-<div class="flex flex-col gap-1 px-4">
-<!-- Item 1 -->
-<div class="flex gap-4 bg-white dark:bg-zinc-800 p-3 rounded-xl border border-slate-100 dark:border-zinc-700 shadow-sm">
-<div class="relative shrink-0">
-<div class="bg-center bg-no-repeat bg-cover rounded-lg size-20 shadow-sm" data-alt="Bowl of spicy seafood noodles" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDZ6RLzbbCmz7sslPg6NopBx_jEzcuhC6bAxUm7uKXE0rgYwi6nj-Romlti45Qy301pf2G247IM7wfEBKG6RzuKgNmY7Q05uCSToGBJxCAoMJFg0qSsQDBdC1k7_5axumRyHdOUmqwKH3SCGCq2IGsuUdWqmDeIwRUvWDIwuVIJhdhvbz95hO79JITr7ogUNzqjnZHqZoIWwPmtesc2blhpWn8QCB5ZcTxS4Pv3AnRfZxwoxYb7QQOK0oFKJIMbz66xH3DkKvWyijg");'></div>
-</div>
-<div class="flex flex-1 flex-col justify-between py-0.5">
-<div class="flex justify-between items-start">
-<h3 class="text-slate-900 dark:text-white text-base font-semibold leading-tight line-clamp-2 pr-2">Spicy Seafood Noodles</h3>
-<button class="text-slate-400 hover:text-red-500 transition-colors">
-<span class="material-symbols-outlined text-[20px]">delete</span>
-</button>
-</div>
-<div class="flex items-center gap-2 text-slate-500 text-sm mt-1 mb-2">
-<span class="material-symbols-outlined text-[16px]">edit_note</span>
-<input class="bg-transparent border-0 border-b border-slate-200 dark:border-zinc-600 p-0 text-sm w-full focus:ring-0 focus:border-primary placeholder-slate-400 text-slate-600 dark:text-slate-300 h-6" placeholder="Add note..." type="text"/>
-</div>
-<div class="flex justify-between items-center mt-1">
-<p class="text-primary font-bold text-base">145.000 ₫</p>
-<div class="flex items-center gap-3 bg-slate-50 dark:bg-zinc-900 rounded-full px-1 py-1 border border-slate-100 dark:border-zinc-700">
-<button class="size-7 flex items-center justify-center rounded-full bg-white dark:bg-zinc-800 text-primary shadow-sm hover:bg-slate-50 dark:hover:bg-zinc-700 border border-slate-100 dark:border-zinc-600 transition-all">
-<span class="material-symbols-outlined text-[18px]">remove</span>
-</button>
-<span class="text-slate-900 dark:text-white text-sm font-semibold w-3 text-center">1</span>
-<button class="size-7 flex items-center justify-center rounded-full bg-primary text-white shadow-sm hover:bg-orange-600 transition-all">
-<span class="material-symbols-outlined text-[18px]">add</span>
-</button>
-</div>
-</div>
-</div>
-</div>
-<!-- Item 2 -->
-<div class="flex gap-4 bg-white dark:bg-zinc-800 p-3 rounded-xl border border-slate-100 dark:border-zinc-700 shadow-sm mt-3">
-<div class="relative shrink-0">
-<div class="bg-center bg-no-repeat bg-cover rounded-lg size-20 shadow-sm" data-alt="Plate of grilled pork skewers" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuAaColGoR45n0R-uuKGdClBoA1ZHYbBA0aUOuP1EPPyQPVPd02wXgbRt2XvwW-EQED2LNrQshpQGni2WXzOy9Ee6SxzOcXTcwqPr4eBKj6VLbsnN81df6d2EKKb10Us84VixQMeSK3GppnGPZ0c-dJNRbiOZ4JO7tUhSszcU4i7du2iH-upZ7MLrVbNdt6_Y7kAMmczL9GzfLgfhxCQULmVRBBqLEL68qABuQEHdSju8FizJgjEkIemtqWAbDpphJYf1-GfErTxGPY");'></div>
-</div>
-<div class="flex flex-1 flex-col justify-between py-0.5">
-<div class="flex justify-between items-start">
-<h3 class="text-slate-900 dark:text-white text-base font-semibold leading-tight line-clamp-2 pr-2">Grilled Pork Skewers</h3>
-<button class="text-slate-400 hover:text-red-500 transition-colors">
-<span class="material-symbols-outlined text-[20px]">delete</span>
-</button>
-</div>
-<div class="flex items-center gap-2 text-slate-500 text-sm mt-1 mb-2">
-<span class="material-symbols-outlined text-[16px]">edit_note</span>
-<input class="bg-transparent border-0 border-b border-slate-200 dark:border-zinc-600 p-0 text-sm w-full focus:ring-0 focus:border-primary placeholder-slate-400 text-slate-600 dark:text-slate-300 h-6" placeholder="Add note..." type="text"/>
-</div>
-<div class="flex justify-between items-center mt-1">
-<p class="text-primary font-bold text-base">85.000 ₫</p>
-<div class="flex items-center gap-3 bg-slate-50 dark:bg-zinc-900 rounded-full px-1 py-1 border border-slate-100 dark:border-zinc-700">
-<button class="size-7 flex items-center justify-center rounded-full bg-white dark:bg-zinc-800 text-primary shadow-sm hover:bg-slate-50 dark:hover:bg-zinc-700 border border-slate-100 dark:border-zinc-600 transition-all">
-<span class="material-symbols-outlined text-[18px]">remove</span>
-</button>
-<span class="text-slate-900 dark:text-white text-sm font-semibold w-3 text-center">2</span>
-<button class="size-7 flex items-center justify-center rounded-full bg-primary text-white shadow-sm hover:bg-orange-600 transition-all">
-<span class="material-symbols-outlined text-[18px]">add</span>
-</button>
-</div>
-</div>
-</div>
-</div>
-<!-- Item 3 -->
-<div class="flex gap-4 bg-white dark:bg-zinc-800 p-3 rounded-xl border border-slate-100 dark:border-zinc-700 shadow-sm mt-3">
-<div class="relative shrink-0">
-<div class="bg-center bg-no-repeat bg-cover rounded-lg size-20 shadow-sm" data-alt="Glass of iced lemongrass tea" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDK73MkqTn84KUTMbPG1pRTVdraODzx3wOqJC-sNQwiMyB-c5tjh235eSBq-FMjy2qlGqB7tulRpjtCcgPDFSmWqK2ES6swqtHqt5zZB_Vgqot-_DrgIa0F7rmZ5bhybYZg_zztq-pvdQQQT0PEL0D3Bv0nzBM-W1ajKLjTOtivM5JUU2aCePwj3PZridsRl0lHKo9bsKkx71cY7kbqtE3AvFcWj3jv8P9drMw_u87l88I0pqYBaeaeDGKus2FH1W3KrQXj9k7EuXg");'></div>
-</div>
-<div class="flex flex-1 flex-col justify-between py-0.5">
-<div class="flex justify-between items-start">
-<h3 class="text-slate-900 dark:text-white text-base font-semibold leading-tight line-clamp-2 pr-2">Iced Lemongrass Tea</h3>
-<button class="text-slate-400 hover:text-red-500 transition-colors">
-<span class="material-symbols-outlined text-[20px]">delete</span>
-</button>
-</div>
-<div class="flex items-center gap-2 text-slate-500 text-sm mt-1 mb-2">
-<span class="material-symbols-outlined text-[16px]">edit_note</span>
-<input class="bg-transparent border-0 border-b border-slate-200 dark:border-zinc-600 p-0 text-sm w-full focus:ring-0 focus:border-primary placeholder-slate-400 text-slate-600 dark:text-slate-300 h-6" placeholder="Add note..." type="text"/>
-</div>
-<div class="flex justify-between items-center mt-1">
-<p class="text-primary font-bold text-base">35.000 ₫</p>
-<div class="flex items-center gap-3 bg-slate-50 dark:bg-zinc-900 rounded-full px-1 py-1 border border-slate-100 dark:border-zinc-700">
-<button class="size-7 flex items-center justify-center rounded-full bg-white dark:bg-zinc-800 text-primary shadow-sm hover:bg-slate-50 dark:hover:bg-zinc-700 border border-slate-100 dark:border-zinc-600 transition-all">
-<span class="material-symbols-outlined text-[18px]">remove</span>
-</button>
-<span class="text-slate-900 dark:text-white text-sm font-semibold w-3 text-center">1</span>
-<button class="size-7 flex items-center justify-center rounded-full bg-primary text-white shadow-sm hover:bg-orange-600 transition-all">
-<span class="material-symbols-outlined text-[18px]">add</span>
-</button>
-</div>
-</div>
-</div>
+<div class="flex flex-col gap-1 px-4" id="cart-items">
+<!-- Items will be rendered here by JavaScript -->
 </div>
 </div>
 <!-- Guest Info (Optional) -->
@@ -184,20 +96,20 @@
 <div class="flex flex-col gap-2 border-b border-dashed border-slate-200 dark:border-zinc-600 pb-4 mb-4">
 <div class="flex justify-between items-center text-sm">
 <span class="text-slate-500 dark:text-slate-400">Subtotal</span>
-<span class="text-slate-900 dark:text-white font-medium">350.000 ₫</span>
+<span class="text-slate-900 dark:text-white font-medium" id="subtotal">0 ₫</span>
 </div>
 <div class="flex justify-between items-center text-sm">
 <span class="text-slate-500 dark:text-slate-400">Service Fee (5%)</span>
-<span class="text-slate-900 dark:text-white font-medium">17.500 ₫</span>
+<span class="text-slate-900 dark:text-white font-medium" id="service-fee">0 ₫</span>
 </div>
 <div class="flex justify-between items-center text-sm">
 <span class="text-slate-500 dark:text-slate-400">VAT (7%)</span>
-<span class="text-slate-900 dark:text-white font-medium">25.200 ₫</span>
+<span class="text-slate-900 dark:text-white font-medium" id="vat">0 ₫</span>
 </div>
 </div>
 <div class="flex justify-between items-center">
 <span class="text-slate-900 dark:text-white font-bold text-lg">Total</span>
-<span class="text-primary font-bold text-xl">392.700 ₫</span>
+<span class="text-primary font-bold text-xl" id="total">0 ₫</span>
 </div>
 </div>
 </div>
@@ -205,11 +117,103 @@
 <!-- Sticky Bottom CTA -->
 <div class="absolute bottom-0 left-0 w-full bg-white dark:bg-zinc-900 border-t border-slate-100 dark:border-zinc-800 p-4 shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.05)] z-20">
 <!-- CHECKOUT BUTTON TO Order-Status.html -->
-<button onclick="window.location.href='Order-Status.html'" class="w-full bg-primary hover:bg-orange-600 active:scale-[0.98] transition-all text-white font-bold text-lg py-3.5 rounded-xl shadow-lg shadow-orange-500/30 flex items-center justify-center gap-2 group">
+<button id="checkout-btn" onclick="handleCheckout()" class="w-full bg-primary hover:bg-orange-600 active:scale-[0.98] transition-all text-white font-bold text-lg py-3.5 rounded-xl shadow-lg shadow-orange-500/30 flex items-center justify-center gap-2 group">
 <span>Place Order Now</span>
 <span class="material-symbols-outlined group-hover:translate-x-1 transition-transform">arrow_forward</span>
 </button>
+<div id="empty-cart-msg" style="display:none" class="text-center">
+<p class="text-slate-500 dark:text-slate-400 text-sm font-medium">Your cart is empty</p>
+</div>
 </div>
 </div>
 </body>
+</html>
+<script src="shared-state.js"></script>
+<script>
+const ITEM_IMAGES = {
+  'seafood-noodles': 'https://lh3.googleusercontent.com/aida-public/AB6AXuDZ6RLzbbCmz7sslPg6NopBx_jEzcuhC6bAxUm7uKXE0rgYwi6nj-Romlti45Qy301pf2G247IM7wfEBKG6RzuKgNmY7Q05uCSToGBJxCAoMJFg0qSsQDBdC1k7_5axumRyHdOUmqwKH3SCGCq2IGsuUdWqmDeIwRUvWDIwuVIJhdhvbz95hO79JITr7ogUNzqjnZHqZoIWwPmtesc2blhpWn8QCB5ZcTxS4Pv3AnRfZxwoxYb7QQOK0oFKJIMbz66xH3DkKvWyijg',
+  'pork-rice': 'https://lh3.googleusercontent.com/aida-public/AB6AXuAaColGoR45n0R-uuKGdClBoA1ZHYbBA0aUOuP1EPPyQPVPd02wXgbRt2XvwW-EQED2LNrQshpQGni2WXzOy9Ee6SxzOcXTcwqPr4eBKj6VLbsnN81df6d2EKKb10Us84VixQMeSK3GppnGPZ0c-dJNRbiOZ4JO7tUhSszcU4i7du2iH-upZ7MLrVbNdt6_Y7kAMmczL9GzfLgfhxCQULmVRBBqLEL68qABuQEHdSju8FizJgjEkIemtqWAbDpphJYf1-GfErTxGPY',
+  'berry-fizz': 'https://lh3.googleusercontent.com/aida-public/AB6AXuDK73MkqTn84KUTMbPG1pRTVdraODzx3wOqJC-sNQwiMyB-c5tjh235eSBq-FMjy2qlGqB7tulRpjtCcgPDFSmWqK2ES6swqtHqt5zZB_Vgqot-_DrgIa0F7rmZ5bhybYZg_zztq-pvdQQQT0PEL0D3Bv0nzBM-W1ajKLjTOtivM5JUU2aCePwj3PZridsRl0lHKo9bsKkx71cY7kbqtE3AvFcWj3jv8P9drMw_u87l88I0pqYBaeaeDGKus2FH1W3KrQXj9k7EuXg'
+};
+
+function updateCartUI() {
+  const container = document.getElementById('cart-items');
+  container.innerHTML = '';
+  
+  if (SCAN_NOW_STATE.cart.length === 0) {
+    container.innerHTML = `
+      <div class="py-12 text-center">
+        <span class="material-symbols-outlined text-slate-300 text-5xl block mb-2">shopping_bag</span>
+        <p class="text-slate-500 text-sm">Your cart is empty</p>
+      </div>
+    `;
+    document.getElementById('checkout-btn').style.display = 'none';
+    document.getElementById('empty-cart-msg').style.display = 'block';
+  } else {
+    document.getElementById('checkout-btn').style.display = 'flex';
+    document.getElementById('empty-cart-msg').style.display = 'none';
+    
+    SCAN_NOW_STATE.cart.forEach((item, idx) => {
+      const itemHTML = `
+        <div class="flex gap-4 bg-white dark:bg-zinc-800 p-3 rounded-xl border border-slate-100 dark:border-zinc-700 shadow-sm ${idx > 0 ? 'mt-3' : ''}">
+          <div class="relative shrink-0">
+            <div class="bg-center bg-no-repeat bg-cover rounded-lg size-20 shadow-sm" style='background-image: url("${ITEM_IMAGES[item.id] || ''}")'></div>
+          </div>
+          <div class="flex flex-1 flex-col justify-between py-0.5">
+            <div class="flex justify-between items-start">
+              <h3 class="text-slate-900 dark:text-white text-base font-semibold leading-tight line-clamp-2 pr-2">${item.name}</h3>
+              <button onclick="removeFromCart('${item.id}')" class="text-slate-400 hover:text-red-500 transition-colors">
+                <span class="material-symbols-outlined text-[20px]">delete</span>
+              </button>
+            </div>
+            <div class="flex justify-between items-center mt-1">
+              <p class="text-primary font-bold text-base">${formatVND(item.price)}</p>
+              <div class="flex items-center gap-3 bg-slate-50 dark:bg-zinc-900 rounded-full px-1 py-1 border border-slate-100 dark:border-zinc-700">
+                <button onclick="updateCartQty('${item.id}', -1)" class="size-7 flex items-center justify-center rounded-full bg-white dark:bg-zinc-800 text-primary shadow-sm hover:bg-slate-50 dark:hover:bg-zinc-700 border border-slate-100 dark:border-zinc-600 transition-all">
+                  <span class="material-symbols-outlined text-[18px]">remove</span>
+                </button>
+                <span class="text-slate-900 dark:text-white text-sm font-semibold w-3 text-center">${item.qty}</span>
+                <button onclick="updateCartQty('${item.id}', 1)" class="size-7 flex items-center justify-center rounded-full bg-primary text-white shadow-sm hover:bg-orange-600 transition-all">
+                  <span class="material-symbols-outlined text-[18px]">add</span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      `;
+      container.innerHTML += itemHTML;
+    });
+  }
+  
+  updateSummary();
+}
+
+function updateSummary() {
+  const subtotal = getCartTotal();
+  const serviceFee = Math.round(subtotal * 0.05);
+  const vat = Math.round(subtotal * 0.07);
+  const total = subtotal + serviceFee + vat;
+  
+  document.getElementById('cart-header').innerText = 'Cart (' + getCartCount() + ')';
+  document.getElementById('subtotal').innerText = formatVND(subtotal);
+  document.getElementById('service-fee').innerText = formatVND(serviceFee);
+  document.getElementById('vat').innerText = formatVND(vat);
+  document.getElementById('total').innerText = formatVND(total);
+}
+
+function handleCheckout() {
+  if (SCAN_NOW_STATE.cart.length === 0) {
+    alert('Your cart is empty');
+    return;
+  }
+  const orderId = placeOrder();
+  if (orderId) {
+    window.location.href = 'Order-Status.html';
+  }
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  updateCartUI();
+});
+</script>
 </html>
