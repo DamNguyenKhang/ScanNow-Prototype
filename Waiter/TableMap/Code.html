@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Nunito:wght@700;800&family=DM+Mono:wght@500;700&display=swap"
+        rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+        rel="stylesheet" />
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#2563EB",
+                        "status-occupied": "#F97316",
+                        "status-empty": "#16A34A",
+                        "status-suspended": "#94A3B8",
+                        "background-light": "#F8F7F4",
+                        "text-main": "#1C1917",
+                        "text-sub": "#78716C",
+                        "text-muted": "#A8A29E",
+                        "border-main": "#E8E4DC",
+                    },
+                    fontFamily: {
+                        "display": ["Nunito", "sans-serif"],
+                        "body": ["Inter", "sans-serif"],
+                        "mono": ["DM Mono", "monospace"],
+                    },
+                    borderRadius: { "DEFAULT": "0.5rem", "lg": "1rem", "xl": "1.5rem", "full": "9999px" },
+                    boxShadow: {
+                        "card": "0 2px 10px rgba(0, 0, 0, 0.05)",
+                        "sheet": "0 -4px 24px rgba(0,0,0,0.10)",
+                    }
+                },
+            },
+        }
+    </script>
+    <style>
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+
+        .bottom-sheet {
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .bottom-sheet.hidden {
+            transform: translateY(100%);
+            display: block !important;
+        }
+    </style>
+    <title>Sơ đồ bàn - ScanNow Waiter</title>
+</head>
+
+<body class="bg-background-light font-body text-text-main min-h-screen flex justify-center">
+    <div
+        class="relative w-[390px] h-[844px] bg-background-light shadow-2xl flex flex-col overflow-hidden border-x border-border-main">
+
+        <!-- TOP BAR -->
+        <header
+            class="sticky top-0 z-40 bg-white border-b border-border-main h-[56px] px-4 flex items-center justify-between shrink-0">
+            <h2 class="font-display font-bold text-[18px] text-text-main">Sơ đồ bàn</h2>
+            <div class="flex items-center gap-3">
+                <button class="relative">
+                    <span class="material-symbols-outlined text-[24px] text-text-sub">search</span>
+                </button>
+                <div class="px-2 py-1 bg-status-empty/10 rounded-full flex items-center gap-1">
+                    <span class="size-1.5 bg-status-empty rounded-full"></span>
+                    <span class="text-[10px] font-bold text-status-empty">12/32 Trống</span>
+                </div>
+            </div>
+        </header>
+
+        <!-- LEGEND -->
+        <div class="px-4 py-3 flex gap-4 bg-white border-b border-border-main shrink-0">
+            <div class="flex items-center gap-1.5">
+                <span class="size-2.5 bg-status-empty rounded-full"></span>
+                <span class="text-[11px] font-medium text-text-sub">Trống</span>
+            </div>
+            <div class="flex items-center gap-1.5">
+                <span class="size-2.5 bg-status-occupied rounded-full"></span>
+                <span class="text-[11px] font-medium text-text-sub">Có khách</span>
+            </div>
+            <div class="flex items-center gap-1.5">
+                <span class="size-2.5 bg-status-suspended rounded-full"></span>
+                <span class="text-[11px] font-medium text-text-sub">Ngưng dùng</span>
+            </div>
+        </div>
+
+        <!-- TABLE GRID -->
+        <main class="flex-1 overflow-y-auto no-scrollbar p-4">
+            <div class="grid grid-cols-3 gap-4" id="table-grid">
+                <!-- Tables injected by JS -->
+            </div>
+        </main>
+
+        <!-- TABLE DETAIL SHEET -->
+        <div id="sheet-overlay"
+            class="fixed inset-0 bg-black/40 z-[45] opacity-0 pointer-events-none transition-opacity duration-300"
+            onclick="closeTableDetail()"></div>
+        <div id="table-detail-sheet"
+            class="fixed bottom-0 left-1/2 -translate-x-1/2 w-[390px] bg-white bottom-sheet hidden z-50 rounded-t-[20px] shadow-sheet p-6 flex flex-col gap-6">
+            <div class="w-full flex justify-center -mt-3 mb-2 shrink-0">
+                <div class="w-[36px] h-1 bg-border-main rounded-full"></div>
+            </div>
+            <div class="flex justify-between items-start">
+                <div>
+                    <h3 class="font-display font-extrabold text-[24px] text-text-main" id="detail-table-id">Bàn A3</h3>
+                    <p class="text-[14px] text-text-muted" id="detail-table-info">Khu vực Tầng 1 · 4 chỗ ngồi</p>
+                </div>
+                <span id="detail-table-status"></span>
+            </div>
+
+            <!-- Active Order Info (if occupied) -->
+            <div id="occupied-info" class="hidden space-y-4">
+                <div class="bg-primary/5 rounded-xl p-4 border border-primary/10">
+                    <div class="flex justify-between items-center mb-3">
+                        <span class="text-[12px] font-bold text-primary uppercase">Đang phục vụ</span>
+                        <span class="font-mono text-[12px] text-primary" id="detail-order-id">#ORD-042</span>
+                    </div>
+                    <div class="space-y-2">
+                        <div class="flex justify-between text-[13px]">
+                            <span class="text-text-sub">Món đang làm:</span>
+                            <span class="font-bold text-text-main">3 món</span>
+                        </div>
+                        <div class="flex justify-between text-[13px]">
+                            <span class="text-text-sub">Thời gian ngồi:</span>
+                            <span class="font-bold text-text-main" id="detail-duration">42 phút</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex flex-col gap-2">
+                    <button id="view-order-btn"
+                        class="w-full h-12 bg-primary text-white font-display font-bold rounded-xl shadow-lg shadow-primary/20">Xem
+                        hóa đơn</button>
+                    <div class="flex gap-2">
+                        <button onclick="completeTable()"
+                            class="flex-1 h-12 border border-status-ready text-status-ready font-bold rounded-xl hover:bg-status-ready/5 transition-colors">Hoàn
+                            tất bàn</button>
+                        <button
+                            class="size-12 border border-border-main text-text-sub rounded-xl flex items-center justify-center hover:bg-slate-50"><span
+                                class="material-symbols-outlined">print</span></button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Empty Info (if empty) -->
+            <div id="empty-info" class="hidden">
+                <button id="create-order-btn"
+                    class="w-full h-12 bg-status-ready text-white font-display font-bold rounded-xl shadow-lg shadow-status-ready/20 flex items-center justify-center gap-2">
+                    <span class="material-symbols-outlined text-[20px]">add</span> Mở bàn / Tạo đơn mới
+                </button>
+            </div>
+
+            <div class="pb-safe"></div>
+        </div>
+
+        <!-- BOTTOM NAV -->
+        <nav
+            class="shrink-0 bg-white border-t border-border-main h-[64px] px-6 flex justify-between items-center z-40 pb-safe">
+            <a class="flex flex-col items-center gap-1 group text-text-muted hover:text-primary transition-colors"
+                href="../Orders/Code.html">
+                <span class="material-symbols-outlined text-[24px]">assignment</span>
+                <span class="text-[10px] font-display font-medium">Đơn hàng</span>
+            </a>
+            <a class="flex flex-col items-center gap-1 group text-primary" href="#">
+                <span class="material-symbols-outlined text-[24px]">grid_view</span>
+                <span class="text-[10px] font-display font-bold">Sơ đồ bàn</span>
+            </a>
+            <div class="relative -top-3">
+                <a href="../CreateOrder/Code.html"
+                    class="size-14 bg-primary text-white rounded-full shadow-lg shadow-primary/30 flex items-center justify-center active:scale-95 transition-transform">
+                    <span class="material-symbols-outlined text-[30px]">add</span>
+                </a>
+                <span
+                    class="absolute -bottom-5 left-1/2 -translate-x-1/2 text-[10px] font-display font-medium text-text-muted">Tạo
+                    đơn</span>
+            </div>
+            <a class="flex flex-col items-center gap-1 group text-text-muted hover:text-primary transition-colors"
+                href="../Menu/Code.html">
+                <span class="material-symbols-outlined text-[24px]">restaurant_menu</span>
+                <span class="text-[10px] font-display font-medium">Menu</span>
+            </a>
+            <a class="flex flex-col items-center gap-1 group text-text-muted hover:text-primary transition-colors"
+                href="#">
+                <span class="material-symbols-outlined text-[24px]">account_circle</span>
+                <span class="text-[10px] font-display font-medium">Tôi</span>
+            </a>
+        </nav>
+    </div>
+
+    <script>
+        const tables = [
+            { id: "A1", status: "empty", zone: "Tầng 1", seats: 4 },
+            { id: "A2", status: "occupied", zone: "Tầng 1", seats: 4, orderId: "ORD-042", startTime: new Date(Date.now() - 42 * 60000) },
+            { id: "A3", status: "empty", zone: "Tầng 1", seats: 2 },
+            { id: "A4", status: "suspended", zone: "Tầng 1", seats: 4 },
+            { id: "B1", status: "occupied", zone: "Tầng 1", seats: 6, orderId: "ORD-039", startTime: new Date(Date.now() - 15 * 60000) },
+            { id: "B2", status: "empty", zone: "Tầng 1", seats: 4 },
+            { id: "B3", status: "empty", zone: "Tầng 1", seats: 4 },
+            { id: "B4", status: "occupied", zone: "Tầng 1", seats: 2, orderId: "ORD-051", startTime: new Date(Date.now() - 5 * 60000) },
+            { id: "C1", status: "empty", zone: "VIP", seats: 8 },
+            { id: "C2", status: "occupied", zone: "VIP", seats: 8, orderId: "ORD-022", startTime: new Date(Date.now() - 85 * 60000) },
+            { id: "M1", status: "empty", zone: "Mang về", seats: 0 },
+            { id: "M2", status: "empty", zone: "Mang về", seats: 0 }
+        ];
+
+        const gridEl = document.getElementById('table-grid');
+        const sheetEl = document.getElementById('table-detail-sheet');
+        const overlayEl = document.getElementById('sheet-overlay');
+
+        function renderTables() {
+            gridEl.innerHTML = tables.map(t => {
+                let statusClass = "bg-white border-border-main text-text-main";
+                if (t.status === 'occupied') statusClass = "bg-status-occupied text-white border-transparent shadow-lg shadow-status-occupied/30";
+                if (t.status === 'suspended') statusClass = "bg-slate-100 text-text-muted border-transparent grayscale";
+
+                const isOccupied = t.status === 'occupied';
+                const dur = isOccupied ? Math.floor((new Date() - t.startTime) / 60000) : 0;
+
+                return `
+                    <div onclick="openTableDetail('${t.id}')" class="aspect-square rounded-2xl border-2 flex flex-col items-center justify-center gap-1 active:scale-95 transition-all cursor-pointer ${statusClass}">
+                        <span class="font-display font-black text-[20px]">${t.id}</span>
+                        ${isOccupied ? `
+                            <div class="flex items-center gap-1 bg-black/10 px-1.5 py-0.5 rounded-full">
+                                <span class="material-symbols-outlined text-[12px]">schedule</span>
+                                <span class="text-[10px] font-bold">${dur}'</span>
+                            </div>
+                        ` : `<span class="text-[10px] font-bold opacity-60 uppercase tracking-tighter">${t.zone}</span>`}
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function openTableDetail(id) {
+            const t = tables.find(table => table.id === id);
+            if (!t) return;
+
+            document.getElementById('detail-table-id').innerText = `Bàn ${t.id}`;
+            document.getElementById('detail-table-info').innerText = `${t.zone} · ${t.seats > 0 ? t.seats + ' chỗ ngồi' : 'Món mang về'}`;
+
+            const statusEl = document.getElementById('detail-table-status');
+            const occupiedInfo = document.getElementById('occupied-info');
+            const emptyInfo = document.getElementById('empty-info');
+
+            if (t.status === 'occupied') {
+                statusEl.innerHTML = `<span class="px-3 py-1 bg-status-occupied/10 text-status-occupied text-[12px] font-bold rounded-full">Đang dùng</span>`;
+                occupiedInfo.classList.remove('hidden');
+                emptyInfo.classList.add('hidden');
+                document.getElementById('detail-order-id').innerText = t.orderId;
+                document.getElementById('detail-duration').innerText = `${Math.floor((new Date() - t.startTime) / 60000)} phút`;
+
+                document.getElementById('view-order-btn').onclick = () => {
+                    window.location.href = `../Orders/Code.html?table=${t.id}`;
+                };
+            } else if (t.status === 'empty') {
+                statusEl.innerHTML = `<span class="px-3 py-1 bg-status-empty/10 text-status-empty text-[12px] font-bold rounded-full">Sẵn sàng</span>`;
+                occupiedInfo.classList.add('hidden');
+                emptyInfo.classList.remove('hidden');
+
+                document.getElementById('create-order-btn').onclick = () => {
+                    window.location.href = `../CreateOrder/Code.html?table=${t.id}`;
+                };
+            } else {
+                statusEl.innerHTML = `<span class="px-3 py-1 bg-slate-100 text-text-muted text-[12px] font-bold rounded-full">Ngưng dùng</span>`;
+                occupiedInfo.classList.add('hidden');
+                emptyInfo.classList.add('hidden');
+            }
+
+            sheetEl.classList.remove('hidden');
+            overlayEl.style.opacity = '1';
+            overlayEl.style.pointerEvents = 'auto';
+        }
+
+        function closeTableDetail() {
+            sheetEl.classList.add('hidden');
+            overlayEl.style.opacity = '0';
+            overlayEl.style.pointerEvents = 'none';
+        }
+
+        function completeTable() {
+            if (confirm("Xác nhận bàn này đã thanh toán và dọn dẹp xong?")) {
+                const id = document.getElementById('detail-table-id').innerText.split(' ')[1];
+                const t = tables.find(table => table.id === id);
+                if (t) {
+                    t.status = 'empty';
+                    t.orderId = null;
+                    t.startTime = null;
+                    renderTables();
+                    closeTableDetail();
+                }
+            }
+        }
+
+        renderTables();
+        setInterval(renderTables, 60000); // Update durations every minute
+    </script>
+</body>
+
+</html>

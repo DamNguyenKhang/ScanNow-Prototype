@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Nunito:wght@700;800&family=DM+Mono:wght@500;700&display=swap"
+        rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+        rel="stylesheet" />
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#2563EB",
+                        "primary-orange": "#F97316",
+                        "background-light": "#F8F7F4",
+                        "text-main": "#1C1917",
+                        "text-sub": "#78716C",
+                        "text-muted": "#A8A29E",
+                        "border-main": "#E8E4DC",
+                        "cart-bg": "linear-gradient(135deg, #2563EB, #1D4ED8)",
+                    },
+                    fontFamily: {
+                        "display": ["Nunito", "sans-serif"],
+                        "body": ["Inter", "sans-serif"],
+                        "mono": ["DM Mono", "monospace"],
+                    },
+                    borderRadius: { "DEFAULT": "0.5rem", "lg": "1rem", "xl": "1.5rem", "full": "9999px" },
+                    boxShadow: {
+                        "card": "0 2px 10px rgba(0, 0, 0, 0.05)",
+                        "float": "0 8px 24px rgba(37, 99, 235, 0.3)",
+                        "sheet": "0 -4px 24px rgba(0,0,0,0.10)",
+                    }
+                },
+            },
+        }
+    </script>
+    <style>
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+
+        .bottom-sheet {
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .bottom-sheet.hidden {
+            transform: translateY(100%);
+            display: block !important;
+        }
+
+        .bottom-sheet-overlay {
+            transition: opacity 0.3s ease;
+        }
+
+        .bottom-sheet-overlay.hidden {
+            opacity: 0;
+            display: block !important;
+            pointer-events: none;
+        }
+    </style>
+    <title>Tạo đơn mới - ScanNow Waiter</title>
+</head>
+
+<body class="bg-background-light font-body text-text-main min-h-screen flex justify-center selection:bg-primary/10">
+    <div
+        class="relative w-[390px] h-[844px] bg-background-light shadow-2xl flex flex-col overflow-hidden border-x border-border-main">
+
+        <!-- SCREEN W-03: TOP BAR -->
+        <header
+            class="sticky top-0 z-40 bg-white border-b border-border-main h-[56px] px-4 flex items-center justify-between shrink-0">
+            <button class="size-8 flex items-center justify-center text-text-sub hover:bg-slate-50 rounded-full"
+                onclick="history.back()">
+                <span class="material-symbols-outlined text-[24px]">chevron_left</span>
+            </button>
+            <h2 class="font-display font-bold text-[16px] text-text-main">Tạo đơn mới</h2>
+            <button
+                class="flex items-center gap-1 bg-[#EFF6FF] px-3 py-1.5 rounded-full text-primary font-body font-bold text-[12px] border border-primary/10"
+                id="cart-counter-btn">
+                <span>Xem giỏ</span>
+                <span
+                    class="bg-primary-orange text-white size-5 rounded-full flex items-center justify-center text-[10px] ml-1 hidden"
+                    id="cart-badge">0</span>
+            </button>
+        </header>
+
+        <!-- MAIN SCROLLABLE AREA -->
+        <main class="flex-1 overflow-y-auto pb-32 no-scrollbar">
+
+            <!-- SELECT TABLE CARD -->
+            <div class="m-4 bg-white border border-border-main rounded-[14px] p-[14px] shadow-card flex justify-between items-center active:scale-[0.98] transition-all cursor-pointer"
+                onclick="openTablePicker()">
+                <div class="flex items-center gap-3">
+                    <span class="material-symbols-outlined text-[20px] text-primary">pin_drop</span>
+                    <div>
+                        <span class="font-display font-bold text-[14px]" id="selected-table-label">Chọn bàn</span>
+                        <div id="table-status-badge" class="hidden mt-1">
+                            <span
+                                class="px-2 py-0.5 bg-green-50 text-green-600 text-[10px] font-bold rounded-md border border-green-100">Trống</span>
+                        </div>
+                    </div>
+                </div>
+                <span class="material-symbols-outlined text-text-muted text-[18px]">expand_more</span>
+            </div>
+
+            <!-- SEARCH DISH BAR -->
+            <div class="mx-4 mb-4">
+                <div class="relative group">
+                    <span
+                        class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-text-muted text-[20px]">search</span>
+                    <input
+                        class="w-full h-[44px] pl-10 pr-4 bg-white border-1.5 border-border-main rounded-[10px] focus:ring-primary/20 focus:border-primary outline-none placeholder:text-text-muted text-[14px] font-body"
+                        placeholder="Tìm món ăn, đồ uống..." type="text" id="dish-search" />
+                </div>
+            </div>
+
+            <!-- CATEGORY TABS (Scrollable) -->
+            <div class="flex overflow-x-auto no-scrollbar px-4 gap-2 mb-4 shrink-0">
+                <button
+                    class="cat-tab active flex-none px-4 py-1.5 rounded-full bg-primary text-white text-[13px] font-body font-medium transition-all"
+                    data-category="all">Tất cả</button>
+                <button
+                    class="cat-tab flex-none px-4 py-1.5 rounded-full bg-[#F1EFE9] text-text-sub text-[13px] font-body font-medium transition-all"
+                    data-category="starter">Khai vị</button>
+                <button
+                    class="cat-tab flex-none px-4 py-1.5 rounded-full bg-[#F1EFE9] text-text-sub text-[13px] font-body font-medium transition-all"
+                    data-category="main">Món chính</button>
+                <button
+                    class="cat-tab flex-none px-4 py-1.5 rounded-full bg-[#F1EFE9] text-text-sub text-[13px] font-body font-medium transition-all"
+                    data-category="drink">Đồ uống</button>
+                <button
+                    class="cat-tab flex-none px-4 py-1.5 rounded-full bg-[#F1EFE9] text-text-sub text-[13px] font-body font-medium transition-all"
+                    data-category="dessert">Tráng miệng</button>
+            </div>
+
+            <!-- DISH LIST -->
+            <div class="px-4 space-y-2" id="dish-list">
+                <!-- Dish cards injected here -->
+            </div>
+        </main>
+
+        <!-- FLOATING CART BAR (Hidden when empty) -->
+        <div class="absolute bottom-[24px] left-[16px] right-[16px] z-[40]">
+            <button id="floating-cart" onclick="openCartSheet()"
+                class="w-full h-[54px] rounded-[14px] bg-primary shadow-float flex items-center justify-between px-4 transition-all scale-0 opacity-0 transform translate-y-4">
+                <div class="flex items-center gap-3">
+                    <div class="size-6 bg-white rounded-full flex items-center justify-center text-primary font-display font-bold text-[13px]"
+                        id="cart-item-count">0</div>
+                    <span class="font-display font-bold text-[15px] text-white">Xem đơn hàng</span>
+                </div>
+                <span class="font-mono font-bold text-[15px] text-white" id="cart-total-price">0 ₫</span>
+            </button>
+        </div>
+
+        <!-- TABLE PICKER SHEET -->
+        <div id="table-overlay" class="fixed inset-0 bg-black/40 z-[45] bottom-sheet-overlay hidden"
+            onclick="closeTablePicker()"></div>
+        <div id="table-sheet"
+            class="fixed bottom-0 left-1/2 -translate-x-1/2 w-[390px] h-[50%] bg-white bottom-sheet hidden z-50 rounded-t-[20px] shadow-sheet flex flex-col">
+            <div class="w-full flex justify-center pt-3 pb-2 shrink-0">
+                <div class="w-[36px] h-1 bg-border-main rounded-full"></div>
+            </div>
+            <div class="px-4 py-3 border-b border-border-main flex justify-between items-center">
+                <h3 class="font-display font-bold text-[18px]">Chọn bàn phục vụ</h3>
+                <button onclick="closeTablePicker()" class="text-text-muted"><span
+                        class="material-symbols-outlined">close</span></button>
+            </div>
+            <div class="flex-1 overflow-y-auto p-4 no-scrollbar">
+                <div class="grid grid-cols-4 gap-3" id="table-grid">
+                    <!-- Table buttons injected here -->
+                </div>
+            </div>
+        </div>
+
+        <!-- CART BOTTOM SHEET -->
+        <div id="cart-overlay" class="fixed inset-0 bg-black/40 z-[45] bottom-sheet-overlay hidden"
+            onclick="closeCartSheet()"></div>
+        <div id="cart-sheet"
+            class="fixed bottom-0 left-1/2 -translate-x-1/2 w-[390px] h-[92%] bg-white bottom-sheet hidden z-50 rounded-t-[20px] shadow-sheet flex flex-col overflow-hidden">
+            <div class="w-full flex justify-center pt-3 pb-2 shrink-0">
+                <div class="w-[36px] h-1 bg-border-main rounded-full"></div>
+            </div>
+            <div class="px-4 pb-4 border-b border-border-main flex justify-between items-start shrink-0">
+                <h3 class="font-display font-bold text-[18px]">Đơn hàng mới</h3>
+                <button class="size-8 flex items-center justify-center text-text-muted hover:bg-slate-50 rounded-full"
+                    onclick="closeCartSheet()">
+                    <span class="material-symbols-outlined text-[20px]">close</span>
+                </button>
+            </div>
+
+            <div class="flex-1 overflow-y-auto no-scrollbar p-4 flex flex-col">
+                <!-- Warning Select Table -->
+                <div id="no-table-warn"
+                    class="bg-[#FFFBEB] border border-[#FDE68A] p-3 rounded-[10px] flex items-center gap-3 mb-6">
+                    <span class="material-symbols-outlined text-status-pending">warning</span>
+                    <span class="text-[13px] font-body text-status-pending">Bạn chưa chọn bàn cho đơn hàng này!</span>
+                </div>
+
+                <!-- Customer Input -->
+                <div class="space-y-4 mb-8">
+                    <div class="relative">
+                        <input id="input-customer-name"
+                            class="w-full h-11 px-4 bg-[#F8F7F4] border-border-main border rounded-xl outline-none focus:border-primary/40 font-body text-[14px]"
+                            placeholder="Tên khách hàng (không bắt buộc)" type="text" />
+                    </div>
+                </div>
+
+                <!-- Cart Items -->
+                <label class="text-[11px] font-bold text-text-muted uppercase tracking-[0.5px] block mb-2">Thông tin món
+                    đã chọn</label>
+                <div class="space-y-0" id="cart-items-list">
+                    <!-- Items injected here -->
+                </div>
+
+                <!-- Global Note -->
+                <div class="mt-6">
+                    <textarea id="order-global-note"
+                        class="w-full px-4 py-3 bg-[#F8F7F4] border-border-main border rounded-xl outline-none focus:border-primary/40 font-body text-[13px] italic min-h-[80px]"
+                        placeholder="Thêm ghi chú cho đơn..."></textarea>
+                </div>
+
+                <!-- Summary -->
+                <div class="mt-8 space-y-2 border-t border-border-main pt-6">
+                    <div class="flex justify-between items-center">
+                        <span class="text-[14px] text-text-sub font-display">Tạm tính</span>
+                        <span class="font-mono text-text-main" id="sheet-subtotal">0 ₫</span>
+                    </div>
+                    <div class="flex justify-between items-center">
+                        <span
+                            class="text-[18px] font-display font-bold text-text-main underline decoration-primary decoration-4 underline-offset-4">TỔNG
+                            CỘNG</span>
+                        <span class="font-mono font-bold text-[22px] text-text-main" id="sheet-total">0 ₫</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Submit Button -->
+            <div class="p-4 border-t border-border-main bg-white shrink-0 pb-safe">
+                <button onclick="submitOrder()"
+                    class="w-full h-[52px] bg-primary-orange text-white font-display font-bold text-[16px] rounded-[10px] shadow-lg shadow-primary-orange/20 active:scale-[0.98] transition-all flex items-center justify-center gap-2">
+                    <span class="material-symbols-outlined">restaurant</span>
+                    🍽 Xác nhận tạo đơn
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- SCRIPTS -->
+    <script>
+        // --- DATA ---
+        const dishes = [
+            { id: 101, name: "Phở bò đặc biệt", category: "main", price: 90000, img: "https://lh3.googleusercontent.com/aida-public/AB6AXuC00y7xYY_2n5cISAQmAiR-mxtLj3XyzLqUnq_zXbN40yR8ygFLtsCckvhA3sTcV_FACaiVo0_0RvdBrEb7pK5AGQaQ6f2Ainh0TmxgdEBJAzfO-66b0PL3I0cNMjZrKYr7Wn6GNkYo5RajllXEqsIOlBzHAUr1qaPlcR7u2XTWOXcCpcvlzZcx_XlfMRYH6KryoZy7J4IAL4f5a5g9eG-YqQ5lWcDaVs415l_z_965IkHsttQNFJr7ax37iFyQC77Qh0ZX8Gzi6EqW", available: true },
+            { id: 102, name: "Gỏi cuốn tôm thịt", category: "starter", price: 45000, img: "https://lh3.googleusercontent.com/aida-public/AB6AXuC5_DOzJsl9i4C4vGSRjRnDNS9zwx66tkD9yRule5ugq_dQh7y7K_kVdoaHtRsK0iuYT4pEJS7HxB6KPYW8OexuYULCKNpuj0_gkPWnH96ZWcaCFlUOLyriKvPAoZIaA6UZ_y04jmNVBfAvJA-E9b-qX3feu4-aLrp7OqwpJ4fZIFqB8NlocxxFn2pc4FEwrqrG7-Cu9OCyrYZSQSzssgIFDq1jtX-5wXunvmes05e_Vrap8L2eD7ztCXLauwTb2KA2xgkhTUVgZ5e0", available: true },
+            { id: 103, name: "Cơm tấm sườn bì", category: "main", price: 75000, img: "https://lh3.googleusercontent.com/aida-public/AB6AXuCHLPqkjcTZt8E0qk78qq-GzcvU3-dJ4nmbTuWDjpgW_EVjaTDYaJdJ9LiYtU7zaav7Pwm0IGylzpYeKw9y038jW5rNbpcAdlJOMMVrE3o-5A62x7jsY8-XB7vFY0oT6iOyZ6bzX8zTQCYqr8LtGJgamY12i1pBzarSGiDyQuitP9zzH2wa3a6_AYjhtHtDuZS6Vr5wmjTuMv7C7jRowiuSKgqXanOVTO2wfb3lHA9gdyW-8H_KlW2Vt31NiBjZMJxYcGeNSmd9MGWF", available: true },
+            { id: 104, name: "Cà phê sữa đá", category: "drink", price: 35000, img: "https://lh3.googleusercontent.com/aida-public/AB6AXuAGD8ek_tZyJFU5QwMiE_B_jsqHKARqJQslMF1mfWqoYQpY1TJoPldGbtr5UR6n2K2Y1FD8eMX9-pTHrfp4DzGXoZKpuaLt5r3Tl0tmJdFZtN4sCw_9xivFjoxoNWgS_mA8srPG2YQRNgSFbUoBFxlgANL1v1Sbiqc1zxhNOMY1L2wQQmiUTQlU35A55xlVgNC5kk4-IGMkBPb7oVmOnEv6aJ37xOU_d9OWV2qXIiRt57ZcSYpEw7_6SrjgNQKIsE7YrCy7eVR1m5uL", available: true },
+            { id: 105, name: "Chè khúc bạch", category: "dessert", price: 40000, img: "https://lh3.googleusercontent.com/aida-public/AB6AXuDSP3-zFhD_aLCGc0cnnyG4uRZW8hJbPYQ4ESu-EELwp3omTnp-sWBBJ6FmhKkHcou98KAT5GPwgJJDyijiLZVUjX2LebZXlEUAEVL0MOyIibj2hVwSGIIOi9oAh6xaL-7DPioiqJP3rMOZmXiUvqK4fSnMc2nLqUDUqz_rBJ2pH_GlV7CkvocDPJgbJLYrTKZjTE6BWq2VyCM5c9Kb1Reo6TGSKm9XizpGd1DIntjiUhw1WNXsoZ0QvkXy4yaTr5XAi7JaUj9UZ75q", available: true },
+            { id: 106, name: "Hủ tiếu Nam Vang", category: "main", price: 65000, img: "", available: false }, // Sold out
+        ];
+
+        const tables = [
+            { id: "A1", status: "empty" }, { id: "A2", status: "occupied" }, { id: "A3", status: "empty" }, { id: "A4", status: "empty" },
+            { id: "B1", status: "empty" }, { id: "B2", status: "empty" }, { id: "B3", status: "empty" }, { id: "B4", status: "occupied" },
+            { id: "C1", status: "occupied" }, { id: "C2", status: "empty" }, { id: "C3", status: "empty" }, { id: "C4", status: "empty" }
+        ];
+
+        // --- STATE ---
+        let cart = []; // Array of { dishId, qty, note }
+        let selectedTableId = null;
+        let activeCategory = "all";
+        let searchQuery = "";
+        let isEditMode = false;
+        let editOrderId = null;
+
+        // --- ELEMENTS ---
+        const dishListEl = document.getElementById('dish-list');
+        const floatingCart = document.getElementById('floating-cart');
+        const cartItemCountEl = document.getElementById('cart-item-count');
+        const cartTotalPriceEl = document.getElementById('cart-total-price');
+        const cartSheet = document.getElementById('cart-sheet');
+        const tableSheet = document.getElementById('table-sheet');
+        const cartOverlay = document.getElementById('cart-overlay');
+        const tableOverlay = document.getElementById('table-overlay');
+        const tableGridEl = document.getElementById('table-grid');
+        const cartItemsListEl = document.getElementById('cart-items-list');
+
+        // --- LOGIC ---
+        function formatCurrency(num) {
+            return new Intl.NumberFormat('vi-VN').format(num) + ' ₫';
+        }
+
+        function renderDishes() {
+            let filtered = dishes.filter(d => {
+                const matchesCat = activeCategory === 'all' || d.category === activeCategory;
+                const matchesSearch = d.name.toLowerCase().includes(searchQuery.toLowerCase());
+                return matchesCat && matchesSearch;
+            });
+
+            dishListEl.innerHTML = filtered.map(d => {
+                const cartItem = cart.find(c => c.dishId === d.id);
+                const qty = cartItem ? cartItem.qty : 0;
+
+                return `
+                    <div class="bg-white border border-border-main rounded-[14px] p-3 shadow-card flex gap-3 relative ${!d.available ? 'opacity-50 grayscale' : ''}">
+                        <div class="size-[72px] rounded-[10px] overflow-hidden bg-slate-100 shrink-0">
+                            ${d.img ? `<img src="${d.img}" class="w-full h-full object-cover">` : `<div class="w-full h-full bg-slate-200"></div>`}
+                        </div>
+                        <div class="flex-1 min-w-0 py-1 flex flex-col justify-between">
+                            <div>
+                                <h4 class="font-display font-bold text-[14px] text-text-main leading-none mb-1.5 shrink-0 truncate">${d.name}</h4>
+                                <span class="bg-[#EFF6FF] text-primary text-[10px] font-bold px-2 py-0.5 rounded-full uppercase">${d.category}</span>
+                            </div>
+                            <span class="font-mono font-bold text-[14px] text-primary-orange">${formatCurrency(d.price)}</span>
+                        </div>
+                        <div class="flex items-center self-center shrink-0">
+                            ${!d.available ? `<span class="bg-[#F5F5F4] text-text-muted px-2 py-1 rounded-lg text-[11px] font-bold">Hết hàng</span>` : (
+                        qty > 0 ? `
+                                <div class="flex items-center bg-[#EFF6FF] rounded-[8px] p-0.5">
+                                    <button onclick="updateCart(${d.id}, -1)" class="size-8 flex items-center justify-center text-primary"><span class="material-symbols-outlined text-[20px]">remove</span></button>
+                                    <span class="w-6 text-center font-display font-bold text-[15px] text-primary">${qty}</span>
+                                    <button onclick="updateCart(${d.id}, 1)" class="size-8 flex items-center justify-center text-primary"><span class="material-symbols-outlined text-[20px]">add</span></button>
+                                </div>
+                                ` : `<button onclick="updateCart(${d.id}, 1)" class="size-9 bg-primary text-white rounded-full flex items-center justify-center shadow-lg shadow-primary/20"><span class="material-symbols-outlined">add</span></button>`
+                    )}
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function updateCart(dishId, delta) {
+            const index = cart.findIndex(c => c.dishId === dishId);
+            if (index > -1) {
+                cart[index].qty += delta;
+                if (cart[index].qty <= 0) cart.splice(index, 1);
+            } else if (delta > 0) {
+                cart.push({ dishId, qty: 1 });
+            }
+            renderDishes();
+            updateCartDisplay();
+        }
+
+        function updateCartDisplay() {
+            const totalQty = cart.reduce((acc, curr) => acc + curr.qty, 0);
+            const totalPrice = cart.reduce((acc, curr) => {
+                const dish = dishes.find(d => d.id === curr.dishId);
+                return acc + (dish.price * curr.qty);
+            }, 0);
+
+            // Floating Bar
+            if (totalQty > 0) {
+                floatingCart.classList.remove('scale-0', 'opacity-0', 'translate-y-4');
+                document.getElementById('cart-badge').classList.remove('hidden');
+                document.getElementById('cart-badge').innerText = totalQty;
+            } else {
+                floatingCart.classList.add('scale-0', 'opacity-0', 'translate-y-4');
+                document.getElementById('cart-badge').classList.add('hidden');
+            }
+            cartItemCountEl.innerText = totalQty;
+            cartTotalPriceEl.innerText = formatCurrency(totalPrice);
+
+            // Sheet
+            document.getElementById('sheet-subtotal').innerText = formatCurrency(totalPrice);
+            document.getElementById('sheet-total').innerText = formatCurrency(totalPrice);
+        }
+
+        function openTablePicker() {
+            tableGridEl.innerHTML = tables.map(t => `
+                <button onclick="selectTable('${t.id}')" class="h-12 rounded-lg border flex flex-col items-center justify-center transition-all ${t.id === selectedTableId ? 'bg-primary border-primary text-white font-bold' : (t.status === 'occupied' ? 'bg-slate-100 border-border-main text-text-muted cursor-not-allowed' : 'bg-white border-border-main text-text-main shadow-sm')}">
+                    <span class="text-[13px]">${t.id}</span>
+                    ${t.status === 'occupied' ? '<span class="text-[8px] uppercase">Có khách</span>' : ''}
+                </button>
+            `).join('');
+            tableSheet.classList.remove('hidden');
+            tableOverlay.classList.remove('hidden');
+        }
+
+        function selectTable(id) {
+            const table = tables.find(t => t.id === id);
+            if (table && table.status === 'occupied') return;
+            selectedTableId = id;
+            document.getElementById('selected-table-label').innerText = `Bàn ${id} · 4 chỗ`;
+            document.getElementById('table-status-badge').classList.remove('hidden');
+            document.getElementById('no-table-warn').classList.add('hidden');
+            closeTablePicker();
+        }
+
+        function closeTablePicker() {
+            tableSheet.classList.add('hidden');
+            tableOverlay.classList.add('hidden');
+        }
+
+        function openCartSheet() {
+            renderCartItems();
+            cartSheet.classList.remove('hidden');
+            cartOverlay.classList.remove('hidden');
+            if (selectedTableId) document.getElementById('no-table-warn').classList.add('hidden');
+            else document.getElementById('no-table-warn').classList.remove('hidden');
+        }
+
+        function renderCartItems() {
+            cartItemsListEl.innerHTML = cart.map(item => {
+                const dish = dishes.find(d => d.id === item.dishId);
+                return `
+                    <div class="flex items-center gap-3 py-4 border-b border-[#F1EFE9]">
+                        <div class="flex-1">
+                            <h4 class="font-display font-bold text-[14px] text-text-main">${dish.name}</h4>
+                            <span class="font-mono font-bold text-[13px] text-primary-orange">${formatCurrency(dish.price)}</span>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <div class="flex items-center bg-[#F1EFE9] rounded-[8px] p-0.5">
+                                <button onclick="updateCart(${dish.id}, -1); renderCartItems();" class="size-7 flex items-center justify-center text-text-sub"><span class="material-symbols-outlined text-[18px]">remove</span></button>
+                                <span class="w-6 text-center font-display font-bold text-[14px] text-text-main">${item.qty}</span>
+                                <button onclick="updateCart(${dish.id}, 1); renderCartItems();" class="size-7 flex items-center justify-center text-text-sub"><span class="material-symbols-outlined text-[18px]">add</span></button>
+                            </div>
+                            <button onclick="removeFromCart(${dish.id})" class="text-text-muted hover:text-red-500 transition-colors"><span class="material-symbols-outlined text-[20px]">delete</span></button>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+            if (cart.length === 0) {
+                cartItemsListEl.innerHTML = '<div class="text-center py-10 flex flex-col items-center opacity-40"><span class="material-symbols-outlined text-[48px] mb-2">shopping_basket</span><p class="font-body italic text-[13px]">Giỏ hàng đang trống...</p></div>';
+            }
+        }
+
+        function removeFromCart(id) {
+            cart = cart.filter(c => c.dishId !== id);
+            renderDishes();
+            updateCartDisplay();
+            renderCartItems();
+        }
+
+        function closeCartSheet() {
+            cartSheet.classList.add('hidden');
+            cartOverlay.classList.add('hidden');
+        }
+
+        function submitOrder() {
+            if (!selectedTableId) {
+                alert("Vui lòng chọn bàn rước khi gửi đơn!");
+                return;
+            }
+            if (cart.length === 0) {
+                alert("Giỏ hàng của bạn đang trống!");
+                return;
+            }
+
+            const btn = event.currentTarget;
+            btn.innerHTML = '<span class="material-symbols-outlined animate-spin">sync</span> Đang lưu...';
+            btn.disabled = true;
+
+            setTimeout(() => {
+                alert(isEditMode ? `Đơn hàng ${editOrderId} đã được cập nhật!` : `Đơn hàng của bàn ${selectedTableId} đã được tạo thành công!`);
+                window.location.href = "../Orders/Code.html";
+            }, 1000);
+        }
+
+        // --- NEW EDIT MODE HANDLING ---
+        function checkEditMode() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const editId = urlParams.get('edit');
+            const tableId = urlParams.get('table');
+
+            if (tableId) selectTable(tableId);
+
+            if (editId) {
+                isEditMode = true;
+                editOrderId = editId;
+
+                // Update UI for Edit Mode
+                document.querySelector('header h2').innerText = "Sửa đơn hàng";
+                const submitBtn = document.querySelector('#cart-sheet button[onclick="submitOrder()"]');
+                submitBtn.innerHTML = '<span class="material-symbols-outlined">save</span> Lưu thay đổi';
+
+                // Mock data loading
+                if (editId === 'ORD-20240115-042') {
+                    cart = [
+                        { dishId: 101, qty: 1 },
+                        { dishId: 104, qty: 2 }
+                    ];
+                    selectTable("A3");
+                    document.getElementById('input-customer-name').value = "Nguyễn Văn A";
+                    document.getElementById('order-global-note').value = "Nhiều hành, Phở bỏ riêng nước.";
+                }
+
+                updateCartDisplay();
+            }
+        }
+
+        // --- LISTENERS ---
+        document.getElementById('dish-search').addEventListener('input', (e) => {
+            searchQuery = e.target.value;
+            renderDishes();
+        });
+
+        document.querySelectorAll('.cat-tab').forEach(tab => {
+            tab.addEventListener('click', () => {
+                document.querySelectorAll('.cat-tab').forEach(t => {
+                    t.classList.remove('bg-primary', 'text-white', 'active');
+                    t.classList.add('bg-[#F1EFE9]', 'text-text-sub');
+                });
+                tab.classList.add('bg-primary', 'text-white', 'active');
+                tab.classList.remove('bg-[#F1EFE9]', 'text-text-sub');
+                activeCategory = tab.dataset.category;
+                renderDishes();
+            });
+        });
+
+        // --- INIT ---
+        renderDishes();
+        checkEditMode();
+    </script>
+</body>
+
+</html>

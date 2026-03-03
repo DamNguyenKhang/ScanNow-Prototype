@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Nunito:wght@700;800&family=DM+Mono:wght@500;700&display=swap"
+        rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+        rel="stylesheet" />
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#2563EB",
+                        "status-in": "#16A34A",
+                        "status-out": "#EF4444",
+                        "background-light": "#F8F7F4",
+                        "text-main": "#1C1917",
+                        "text-sub": "#78716C",
+                        "text-muted": "#A8A29E",
+                        "border-main": "#E8E4DC",
+                    },
+                    fontFamily: {
+                        "display": ["Nunito", "sans-serif"],
+                        "body": ["Inter", "sans-serif"],
+                        "mono": ["DM Mono", "monospace"],
+                    },
+                    borderRadius: { "DEFAULT": "0.5rem", "lg": "1rem", "xl": "1.5rem", "full": "9999px" },
+                },
+            },
+        }
+    </script>
+    <style>
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+
+        .toggle-dot {
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        input:checked+.toggle-bg {
+            background-color: #16A34A;
+        }
+
+        input:checked+.toggle-bg .toggle-dot {
+            transform: translateX(18px);
+        }
+    </style>
+    <title>Quản lý Menu - ScanNow Waiter</title>
+</head>
+
+<body class="bg-background-light font-body text-text-main min-h-screen flex justify-center">
+    <div
+        class="relative w-[390px] h-[844px] bg-background-light shadow-2xl flex flex-col overflow-hidden border-x border-border-main">
+
+        <!-- TOP BAR -->
+        <header
+            class="sticky top-0 z-40 bg-white border-b border-border-main h-[56px] px-4 flex items-center justify-between shrink-0">
+            <h2 class="font-display font-bold text-[18px] text-text-main">Tình trạng Menu</h2>
+            <div class="flex items-center gap-2">
+                <button
+                    class="size-9 bg-slate-50 border border-border-main text-text-sub rounded-lg flex items-center justify-center"><span
+                        class="material-symbols-outlined">filter_list</span></button>
+            </div>
+        </header>
+
+        <!-- SEARCH & QUICK FILTERS -->
+        <div class="bg-white px-4 py-3 border-b border-border-main shrink-0 space-y-3">
+            <div class="relative group">
+                <span
+                    class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-text-muted text-[18px]">search</span>
+                <input
+                    class="w-full h-10 pl-9 pr-4 bg-slate-50 border-none rounded-lg focus:ring-primary/20 outline-none placeholder:text-text-muted text-[13px] font-body"
+                    placeholder="Tìm món ăn nhanh..." type="text" id="dish-search" />
+            </div>
+            <div class="flex gap-2 overflow-x-auto no-scrollbar">
+                <button class="filter-btn active px-3 py-1.5 rounded-lg bg-primary text-white text-[12px] font-bold"
+                    data-stock="all">Tất cả</button>
+                <button class="filter-btn px-3 py-1.5 rounded-lg bg-slate-100 text-text-sub text-[12px] font-medium"
+                    data-stock="in">Còn hàng</button>
+                <button class="filter-btn px-3 py-1.5 rounded-lg bg-slate-100 text-text-sub text-[12px] font-medium"
+                    data-stock="out">Hết hàng</button>
+                <div class="w-px h-5 bg-border-main mx-1 self-center"></div>
+                <button class="filter-btn px-3 py-1.5 rounded-lg bg-slate-100 text-text-sub text-[12px] font-medium"
+                    data-cat="main">Món chính</button>
+                <button class="filter-btn px-3 py-1.5 rounded-lg bg-slate-100 text-text-sub text-[12px] font-medium"
+                    data-cat="drink">Đồ uống</button>
+            </div>
+        </div>
+
+        <!-- MENU LIST -->
+        <main class="flex-1 overflow-y-auto no-scrollbar pt-2">
+            <div class="space-y-2 px-2" id="menu-list">
+                <!-- Menu items injected by JS -->
+            </div>
+        </main>
+
+        <!-- BOTTOM NAV -->
+        <nav
+            class="shrink-0 bg-white border-t border-border-main h-[64px] px-6 flex justify-between items-center z-40 pb-safe">
+            <a class="flex flex-col items-center gap-1 group text-text-muted hover:text-primary transition-colors"
+                href="../Orders/Code.html">
+                <span class="material-symbols-outlined text-[24px]">assignment</span>
+                <span class="text-[10px] font-display font-medium">Đơn hàng</span>
+            </a>
+            <a class="flex flex-col items-center gap-1 group text-text-muted hover:text-primary transition-colors"
+                href="../TableMap/Code.html">
+                <span class="material-symbols-outlined text-[24px]">grid_view</span>
+                <span class="text-[10px] font-display font-medium">Sơ đồ bàn</span>
+            </a>
+            <div class="relative -top-3">
+                <a href="../CreateOrder/Code.html"
+                    class="size-14 bg-primary text-white rounded-full shadow-lg shadow-primary/30 flex items-center justify-center active:scale-95 transition-transform">
+                    <span class="material-symbols-outlined text-[30px]">add</span>
+                </a>
+                <span
+                    class="absolute -bottom-5 left-1/2 -translate-x-1/2 text-[10px] font-display font-medium text-text-muted">Tạo
+                    đơn</span>
+            </div>
+            <a class="flex flex-col items-center gap-1 group text-primary" href="#">
+                <span class="material-symbols-outlined text-[24px]">restaurant_menu</span>
+                <span class="text-[10px] font-display font-bold">Menu</span>
+            </a>
+            <a class="flex flex-col items-center gap-1 group text-text-muted hover:text-primary transition-colors"
+                href="#">
+                <span class="material-symbols-outlined text-[24px]">account_circle</span>
+                <span class="text-[10px] font-display font-medium">Tôi</span>
+            </a>
+        </nav>
+    </div>
+
+    <!-- TOAST NOTIFICATION -->
+    <div id="toast"
+        class="fixed bottom-20 left-1/2 -translate-x-1/2 bg-slate-900 text-white px-4 py-2.5 rounded-xl text-[13px] font-bold shadow-2xl opacity-0 transform translate-y-4 transition-all duration-300 z-50 pointer-events-none">
+        Đã cập nhật tình trạng món ăn
+    </div>
+
+    <script>
+        let menuItems = [
+            { id: 101, name: "Phở bò đặc biệt", category: "main", price: 90000, available: true, code: "MN-PB01" },
+            { id: 102, name: "Gỏi cuốn tôm thịt", category: "starter", price: 45000, available: true, code: "MN-GC02" },
+            { id: 103, name: "Cơm tấm sườn bì", category: "main", price: 75000, available: true, code: "MN-CT03" },
+            { id: 104, name: "Cà phê sữa đá", category: "drink", price: 35000, available: true, code: "MN-CF04" },
+            { id: 105, name: "Chè khúc bạch", category: "dessert", price: 40000, available: false, code: "MN-CK05" },
+            { id: 106, name: "Hủ tiếu Nam Vang", category: "main", price: 65000, available: false, code: "MN-HT06" },
+            { id: 107, name: "Trà đào cam sả", category: "drink", price: 45000, available: true, code: "MN-TD07" },
+            { id: 108, name: "Bún chả Hà Nội", category: "main", price: 70000, available: true, code: "MN-BC08" },
+        ];
+
+        let stockFilter = "all";
+        let catFilter = "all";
+        let searchQuery = "";
+
+        const listEl = document.getElementById('menu-list');
+        const toastEl = document.getElementById('toast');
+
+        function renderMenu() {
+            let filtered = menuItems.filter(m => {
+                const matchesStock = stockFilter === 'all' || (stockFilter === 'in' ? m.available : !m.available);
+                const matchesCat = catFilter === 'all' || m.category === catFilter;
+                const matchesSearch = m.name.toLowerCase().includes(searchQuery.toLowerCase()) || m.code.toLowerCase().includes(searchQuery.toLowerCase());
+                return matchesStock && matchesCat && matchesSearch;
+            });
+
+            listEl.innerHTML = filtered.map(m => `
+                <div class="bg-white border-y border-border-main p-3 flex justify-between items-center transition-all ${!m.available ? 'opacity-70 bg-slate-50/50' : ''}">
+                    <div class="flex items-center gap-3">
+                         <div class="size-10 bg-slate-100 rounded-lg flex items-center justify-center text-text-muted shrink-0">
+                            <span class="material-symbols-outlined text-[20px]">fastfood</span>
+                        </div>
+                        <div>
+                             <h4 class="font-display font-bold text-[14px] leading-tight mb-1">${m.name}</h4>
+                             <div class="flex items-center gap-2">
+                                <span class="font-mono text-[10px] text-text-muted tracking-tighter">${m.code}</span>
+                                <span class="size-1 bg-border-main rounded-full"></span>
+                                <span class="text-[11px] font-bold text-primary-orange">${new Intl.NumberFormat('vi-VN').format(m.price)} ₫</span>
+                             </div>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-3">
+                        <span class="text-[11px] font-bold uppercase tracking-wider ${m.available ? 'text-status-in' : 'text-status-out'}">${m.available ? 'Còn hàng' : 'Hết hàng'}</span>
+                        <label class="relative inline-flex items-center cursor-pointer">
+                            <input type="checkbox" class="sr-only" ${m.available ? 'checked' : ''} onchange="toggleAvailability(${m.id})">
+                            <div class="toggle-bg w-[38px] h-[20px] bg-slate-200 rounded-full p-[2px] transition-colors relative">
+                                <div class="toggle-dot size-4 bg-white rounded-full shadow-sm"></div>
+                            </div>
+                        </label>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function toggleAvailability(id) {
+            const item = menuItems.find(m => m.id === id);
+            if (item) {
+                item.available = !item.available;
+                renderMenu();
+                showToast(`Đã chuyển ${item.name} sang ${item.available ? 'CÒN HÀNG' : 'HẾT HÀNG'}`);
+            }
+        }
+
+        function showToast(msg) {
+            toastEl.innerText = msg;
+            toastEl.classList.remove('opacity-0', 'translate-y-4');
+            setTimeout(() => {
+                toastEl.classList.add('opacity-0', 'translate-y-4');
+            }, 2000);
+        }
+
+        document.getElementById('dish-search').addEventListener('input', (e) => {
+            searchQuery = e.target.value;
+            renderMenu();
+        });
+
+        document.querySelectorAll('.filter-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const stock = btn.dataset.stock;
+                const cat = btn.dataset.cat;
+
+                if (stock) {
+                    stockFilter = stock;
+                    // Highlight logic
+                    document.querySelectorAll('[data-stock]').forEach(b => b.classList.replace('bg-primary', 'bg-slate-100'));
+                    document.querySelectorAll('[data-stock]').forEach(b => b.classList.replace('text-white', 'text-text-sub'));
+                    btn.classList.replace('bg-slate-100', 'bg-primary');
+                    btn.classList.replace('text-text-sub', 'text-white');
+                }
+                if (cat) {
+                    catFilter = cat === catFilter ? 'all' : cat;
+                    // Highlight logic
+                    document.querySelectorAll('[data-cat]').forEach(b => {
+                        b.classList.replace('bg-primary', 'bg-slate-100');
+                        b.classList.replace('text-white', 'text-text-sub');
+                    });
+                    if (catFilter !== 'all') {
+                        btn.classList.replace('bg-slate-100', 'bg-primary');
+                        btn.classList.replace('text-text-sub', 'text-white');
+                    }
+                }
+                renderMenu();
+            });
+        });
+
+        renderMenu();
+    </script>
+</body>
+
+</html>
