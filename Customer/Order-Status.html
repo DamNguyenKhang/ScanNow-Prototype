@@ -73,9 +73,9 @@
     <div
       class="flex items-center px-4 py-3 justify-between bg-surface-light dark:bg-surface-dark shadow-sm sticky top-0 z-50"
     >
-      <!-- BACK BUTTON TO Menu.html -->
+      <!-- BACK BUTTON TO index.html -->
       <button
-        onclick="window.location.href = 'Menu.html'"
+        onclick="window.location.href = 'index.html'"
         class="text-slate-900 dark:text-slate-100 flex size-10 shrink-0 items-center justify-center rounded-full hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
       >
         <span class="material-symbols-outlined">close</span>
@@ -135,7 +135,7 @@
     >
       <!-- ADD MORE ITEMS BUTTON -->
       <button
-        onclick="window.location.href = 'Menu.html'"
+        onclick="window.location.href = 'index.html'"
         class="w-full flex items-center justify-center gap-2 rounded-xl bg-primary hover:bg-orange-600 py-3.5 px-6 text-white font-bold text-base transition-colors"
       >
         <span class="material-symbols-outlined">add_shopping_cart</span>
@@ -143,7 +143,7 @@
       </button>
       <!-- BACK TO MENU BUTTON -->
       <button
-        onclick="window.location.href = 'Menu.html'"
+        onclick="window.location.href = 'index.html'"
         class="w-full flex items-center justify-center gap-2 rounded-xl border-2 border-slate-200 dark:border-slate-700 bg-transparent py-3.5 px-6 text-slate-900 dark:text-white font-bold text-base hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors"
       >
         <span class="material-symbols-outlined">restaurant_menu</span>
@@ -216,7 +216,7 @@ function loadOrdersUI() {
   
   if (orders.length === 0) {
     alert('No orders found. Please place an order first.');
-    window.location.href = 'Menu.html';
+    window.location.href = 'index.html';
     return;
   }
   
